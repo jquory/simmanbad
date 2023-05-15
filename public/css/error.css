@@ -1,0 +1,16 @@
+#error {
+    background-color: #ebf3ff;
+    padding: 1rem 0;
+}
+#error .img-error {
+    padding: 2rem 0;
+    width: 63%;
+}
+#error .error-title {
+    font-size: 4rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+body.theme-dark #error {
+    background-color: #151521;
+}
