@@ -1,4 +1,4 @@
-    <script src="{{ url('/js/bootstrap.js') }}"></script>
+        <script src="{{ url('/js/bootstrap.js') }}"></script>
     <script src="{{ url('/js/app.js') }}"></script>
 
     <!-- Need: Apexcharts -->

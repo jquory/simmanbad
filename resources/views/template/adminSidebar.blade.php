@@ -40,8 +40,8 @@
                     <li class="sidebar-title">Data Barang</li>
     
 
-                    <li class="{{ (request()->is('admin/hello')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/hello') }}" class="sidebar-link">
+                    <li class="{{ (request()->is('admin/daftar-barang')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('admin/daftar-barang') }}" class="sidebar-link">
                             <i class="bi bi-box-fill"></i>
                             <span>Daftar Barang</span>
                         </a>
@@ -121,6 +121,23 @@
                 @yield('content')
             </section>
         </div>
+
+        <footer>
+            <div class="footer clearfix mb-0 text-muted">
+                <div class="float-start">
+                    <a href="https://linkedin.com/in/qori" target="blank">2023 &copy; Kemas Muhammad Qori Ichsan</a>
+                </div>
+                <div class="float-end">
+                    <p>
+                        Developed with
+                        <span class="text-danger"
+                            ><i class="bi bi-heart"></i
+                        ></span>
+                        by <a href="https://qory.dev" target="blank">Qory</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
     </div>
 </div>
 

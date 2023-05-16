@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +19,6 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'dashboardAdmin']);
-    Route::get('/admin/hello', function () {
-        return  view('components.index', ['title' => 'Hoi']);
-    });
+    Route::get('/admin/daftar-barang', [BarangController::class, 'index']);
     Route::get('/admin/logout', [AuthController::class, 'logout']);
-
 });
