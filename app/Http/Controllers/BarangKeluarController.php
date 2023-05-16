@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangKeluar;
 use Illuminate\Http\Request;
 
 class BarangKeluarController extends Controller
@@ -13,7 +14,9 @@ class BarangKeluarController extends Controller
      */
     public function index()
     {
-        //
+        $recordsAll = BarangKeluar::all();
+
+        return view('admin.barangKeluar', compact('recordsAll'));
     }
 
     /**

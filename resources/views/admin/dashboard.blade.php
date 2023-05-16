@@ -204,7 +204,7 @@
                                         </td>
                                         <td class="col-auto">
                                             <p class="waktu-history">
-                                                {{ \Carbon\Carbon::parse($history->created_at)->isoFormat('dddd, D MMMM Y H:mm') }}
+                                                {{ \Carbon\Carbon::parse($history->created_at)->isoFormat('dddd, D MMMM Y hh:mm') }}
                                             </p>
                                         </td>
                                         <td

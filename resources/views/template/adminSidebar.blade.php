@@ -48,21 +48,21 @@
                     </li>
 
                     <li class="{{ (request()->is('admin/barang-masuk')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/hello') }}" class="sidebar-link">
+                        <a href="{{ url('admin/barang-masuk') }}" class="sidebar-link">
                             <i class="bi bi-bag-fill"></i>
                             <span>Barang Masuk</span>
                         </a>
                     </li>
 
                     <li class="{{ (request()->is('admin/barang-keluar')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/hello') }}" class="sidebar-link">
+                        <a href="{{ url('admin/barang-keluar') }}" class="sidebar-link">
                             <i class="bi bi-diagram-3-fill"></i>
                             <span>Barang Keluar</span>
                         </a>
                     </li>
 
                     <li class="{{ (request()->is('admin/history')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/hello') }}" class="sidebar-link">
+                        <a href="{{ url('admin/history') }}" class="sidebar-link">
                             <i class="bi bi-calendar2-date-fill"></i>
                             <span>History</span>
                         </a>
@@ -71,7 +71,7 @@
                     <li class="sidebar-title">Akun</li>
 
                     <li class="{{ (request()->is('admin/akun')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/hello') }}" class="sidebar-link">
+                        <a href="{{ url('admin/akun') }}" class="sidebar-link">
                             <i class="bi bi-people-fill"></i>
                             <span>Daftar Pengguna</span>
                         </a>

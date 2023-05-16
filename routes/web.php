@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +22,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'dashboardAdmin']);
     Route::get('/admin/daftar-barang', [BarangController::class, 'index']);
+    Route::get('/admin/barang-masuk', [BarangMasukController::class, 'index']);
+    Route::get('/admin/barang-keluar', [BarangKeluarController::class, 'index']);
     Route::get('/admin/logout', [AuthController::class, 'logout']);
 });

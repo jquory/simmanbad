@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangMasuk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BarangMasukController extends Controller
 {
@@ -13,7 +15,9 @@ class BarangMasukController extends Controller
      */
     public function index()
     {
-        //
+        $allRecords = DB::table('barang_masuk')->select('kode_barang', 'nama_barang', 'jumlah_masuk', 'satuan', 'waktu_masuk')->get();;
+
+        return view('admin.barangMasuk', compact('allRecords'));
     }
 
     /**

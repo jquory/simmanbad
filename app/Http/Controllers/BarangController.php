@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\IndexBarang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
 {
@@ -14,8 +15,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $allRecords = IndexBarang::all();
-
+        $allRecords = DB::table('barang')->select('kode_barang', 'nama_barang', 'spek', 'satuan')->get();
         return view('admin.daftarBarang', compact('allRecords'));
     }
 
