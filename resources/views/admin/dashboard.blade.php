@@ -27,12 +27,12 @@
                             <h6
                                 class="text-muted font-semibold"
                             >
-                                Profile Views
+                                Transaksi
                             </h6>
                             <h6
                                 class="font-extrabold mb-0"
                             >
-                                112.000
+                                {{ $totalbarangkeluar + $totalbarangmasuk }}
                             </h6>
                         </div>
                     </div>
@@ -60,12 +60,12 @@
                             <h6
                                 class="text-muted font-semibold"
                             >
-                                Followers
+                                Pengguna
                             </h6>
                             <h6
                                 class="font-extrabold mb-0"
                             >
-                                183.000
+                                {{ $totaladmin + $totaluser }}
                             </h6>
                         </div>
                     </div>
@@ -93,12 +93,12 @@
                             <h6
                                 class="text-muted font-semibold"
                             >
-                                Following
+                                Aktivitas
                             </h6>
                             <h6
                                 class="font-extrabold mb-0"
                             >
-                                80.000
+                                {{ $totalhistory }}
                             </h6>
                         </div>
                     </div>
@@ -126,12 +126,12 @@
                             <h6
                                 class="text-muted font-semibold"
                             >
-                                Saved Post
+                                Barang
                             </h6>
                             <h6
                                 class="font-extrabold mb-0"
                             >
-                                112
+                                {{ $totalbarang }}
                             </h6>
                         </div>
                     </div>
@@ -143,10 +143,22 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Profile Visit</h4>
+                    <h4>Transaksi Barang Masuk Tahun Ini</h4>
                 </div>
                 <div class="card-body">
-                    <div id="chart-profile-visit"></div>
+                    <div id="chart-barang-masuk"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Transaksi Barang Keluar Tahun Ini</h4>
+                </div>
+                <div class="card-body">
+                    <div id="chart-barang-keluar"></div>
                 </div>
             </div>
         </div>
@@ -163,75 +175,47 @@
                             class="table table-hover table-lg"
                         >
                             <thead>
-                                <tr>
+                                <tr align="center">
                                     <th>Nama</th>
+                                    <th>Waktu</th>
                                     <th>Aktivitas</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="col-3">
-                                        <div
-                                            class="d-flex align-items-center"
-                                        >
+                                @foreach($historyterakhir as $history)
+                                    <tr>
+                                        <td class="col-3">
                                             <div
-                                                class="avatar avatar-md"
+                                                class="d-flex align-items-center"
                                             >
-                                                <img
-                                                    src="{{ url('/images/faces/5.jpg') }}"
-                                                />
+                                                <div
+                                                    class="avatar avatar-md"
+                                                >
+                                                    <img
+                                                        src="{{ $history->image_url }}"
+                                                    />
+                                                </div>
+                                                <p
+                                                    class="font-bold ms-3 mb-0"
+                                                >
+                                                    {{ $history->name }}
+                                                </p>
                                             </div>
-                                            <p
-                                                class="font-bold ms-3 mb-0"
-                                            >
-                                                Si
-                                                Cantik
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class="waktu-history">
+                                                {{ \Carbon\Carbon::parse($history->created_at)->isoFormat('dddd, D MMMM Y H:mm') }}
                                             </p>
-                                        </div>
-                                    </td>
-                                    <td
-                                        class="col-auto"
-                                    >
-                                        <p class="mb-0">
-                                            Congratulations
-                                            on your
-                                            graduation!
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-3">
-                                        <div
-                                            class="d-flex align-items-center"
+                                        </td>
+                                        <td
+                                            class="col-auto"
                                         >
-                                            <div
-                                                class="avatar avatar-md"
-                                            >
-                                                <img
-                                                    src="{{ url('/images/faces/2.jpg') }}"
-                                                />
-                                            </div>
-                                            <p
-                                                class="font-bold ms-3 mb-0"
-                                            >
-                                                Si
-                                                Ganteng
+                                            <p class="mb-0">
+                                                {{ $history->detail_history }}
                                             </p>
-                                        </div>
-                                    </td>
-                                    <td
-                                        class="col-auto"
-                                    >
-                                        <p class="mb-0">
-                                            Wow amazing
-                                            design! Can
-                                            you make
-                                            another
-                                            tutorial for
-                                            this design?
-                                        </p>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -262,60 +246,29 @@
     </div>
     <div class="card">
         <div class="card-header">
-            <h4>Recent Messages</h4>
+            <h4>Pengguna Terbaru</h4>
         </div>
         <div class="card-content pb-4">
-            <div
-                class="recent-message d-flex px-4 py-3"
-            >
-                <div class="avatar avatar-lg">
-                    <img
-                        src="{{ url('/images/faces/4.jpg') }}"
-                    />
+            @foreach($akunterakhir as $akun)
+                <div class="recent-message d-flex px-4 py-3">
+                    <div class="avatar avatar-lg">
+                        <img
+                            src="{{ $akun->image_url }}"
+                        />
+                    </div>
+                    <div class="name ms-4">
+                        <h5 class="mb-1">{{ $akun->name }}</h5>
+                        <h6 class="text-muted mb-0">
+                            <i>{{ $akun->username }}</i>
+                        </h6>
+                    </div>
                 </div>
-                <div class="name ms-4">
-                    <h5 class="mb-1">Hank Schrader</h5>
-                    <h6 class="text-muted mb-0">
-                        @johnducky
-                    </h6>
-                </div>
-            </div>
-            <div
-                class="recent-message d-flex px-4 py-3"
-            >
-                <div class="avatar avatar-lg">
-                    <img
-                        src="{{ url('/images/faces/5.jpg') }}"
-                    />
-                </div>
-                <div class="name ms-4">
-                    <h5 class="mb-1">
-                        Dean Winchester
-                    </h5>
-                    <h6 class="text-muted mb-0">
-                        @imdean
-                    </h6>
-                </div>
-            </div>
-            <div class="recent-message d-flex px-4 py-3">
-                <div class="avatar avatar-lg">
-                    <img
-                        src="{{ url('/images/faces/1.jpg') }}"
-                    />
-                </div>
-                <div class="name ms-4">
-                    <h5 class="mb-1">John Dodol</h5>
-                    <h6 class="text-muted mb-0">
-                        @dodoljohn
-                    </h6>
-                </div>
-            </div>
-            
+            @endforeach
         </div>
     </div>
     <div class="card">
         <div class="card-header">
-            <h4>Visitors Profile</h4>
+            <h4>Peran Pengguna</h4>
         </div>
         <div class="card-body">
             <div id="chart-visitors-profile"></div>
@@ -325,8 +278,16 @@
 
 <script src="{{ url('/extensions/apexcharts/apexcharts.min.js') }}"></script>
 <script type="text/javascript">
-var jsonData = JSON.parse('{!! $jsonData !!}');
-let optionsProfileVisit = {
+
+var recordKeluar = JSON.parse('{!! $recordsKeluar !!}');
+var recordMasuk = JSON.parse('{!! $recordsMasuk !!}');
+var historyData = JSON.parse('{!! $historyterakhir !!}');
+var jsonUser = JSON.parse('{!! $totaluser !!}');
+var jsonAdmin = JSON.parse('{!! $totaladmin !!}');
+console.log(recordKeluar, recordMasuk)
+
+
+let optionBarangMasuk = {
     annotations: {
         position: "back",
     },
@@ -343,20 +304,67 @@ let optionsProfileVisit = {
     plotOptions: {},
     series: [
         {
-            name: "Akun",
-            data: [jsonData[0].count],
-        },
+            name: "Transaksi",
+            data: [12, 23, 34, 45, 21, 23, 12, 45, 5]
+        }
     ],
     colors: "#435ebe",
     xaxis: {
         categories: [
-            jsonData[0].month_name
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
         ],
     },
 };
+
+let optionBarangKeluar = {
+    annotations: {
+        position: "back",
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    chart: {
+        type: "bar",
+        height: 300,
+    },
+    fill: {
+        opacity: 1,
+    },
+    plotOptions: {},
+    series: [
+        {
+            name: "Transaksi",
+            data: [12, 23, 34, 45, 21, 23, 12, 45, 5]
+        }
+    ],
+    colors: "#57CAEB",
+    xaxis: {
+        categories: [
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ],
+    },
+};
+
+
 let optionsVisitorsProfile = {
-    series: [70, 30],
-    labels: ["Male", "Female"],
+    series: [jsonUser, jsonAdmin],
+    labels: ["User", "Admin"],
     colors: ["#435ebe", "#55c6e8"],
     chart: {
         type: "donut",
@@ -439,16 +447,22 @@ let optionsEurope = {
 };
 
 
-let chartProfileVisit = new ApexCharts(
-    document.querySelector("#chart-profile-visit"),
-    optionsProfileVisit
+let chartBarangMasuk = new ApexCharts(
+    document.querySelector("#chart-barang-masuk"),
+    optionBarangMasuk
 );
+let chartBarangKeluar = new ApexCharts(
+    document.querySelector("#chart-barang-keluar"),
+    optionBarangKeluar
+);
+
 let chartVisitorsProfile = new ApexCharts(
     document.getElementById("chart-visitors-profile"),
     optionsVisitorsProfile
 );
 
-chartProfileVisit.render();
+chartBarangMasuk.render();
+chartBarangKeluar.render();
 chartVisitorsProfile.render();
 
 </script>
