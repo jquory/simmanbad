@@ -3,7 +3,10 @@
 @section('content')
 <section class="section">
     <div class="card">
-        <div class="card-header">Data Barang Masuk</div>
+        <div class="card-header d-flex justify-content-between">
+            <h4>List Barang Masuk</h4>
+            <button class="btn btn-primary">Tambah Transaksi</button>
+        </div>
         <div class="card-body">
             <table class="table" id="table1">
                 <thead>
@@ -14,6 +17,7 @@
                         <th>Satuan</th>
                         <th>Jumlah Masuk</th>
                         <th>Waktu Masuk</th>
+                        <th>aksi</th>
                     </tr>
                 </thead>
                 <tbody>

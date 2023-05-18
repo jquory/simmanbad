@@ -40,7 +40,7 @@
                     <li class="sidebar-title">Data Barang</li>
     
 
-                    <li class="{{ (request()->is('admin/daftar-barang')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                    <li class="{{ (request()->is('admin/daftar-barang')) ? 'sidebar-item active' : ((request()->is('admin/daftar-barang/create')) ? 'sidebar-item active' : 'sidebar-item') }}">
                         <a href="{{ url('admin/daftar-barang') }}" class="sidebar-link">
                             <i class="bi bi-box-fill"></i>
                             <span>Daftar Barang</span>

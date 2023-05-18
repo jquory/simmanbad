@@ -4,8 +4,8 @@
 <section class="section">
     <div class="card">
         <div class="card-header d-flex justify-content-between">
-            <p>List Barang Masuk</p>
-            <button class="btn btn-primary">Tambah Barang</button>
+            <h4>Data Barang</h4>
+            <a href="{{ url('/admin/daftar-barang/create') }}" class="btn btn-primary">Tambah Barang</a>
         </div>
         <div class="card-body">
             <table class="table" id="table1">

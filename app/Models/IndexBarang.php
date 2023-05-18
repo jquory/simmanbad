@@ -13,6 +13,7 @@ class IndexBarang extends Model
     protected $table = 'barang';
 
     protected $fillable = [
+        'uuid',
         'kode_barang',
         'nama_barang',
         'spek',

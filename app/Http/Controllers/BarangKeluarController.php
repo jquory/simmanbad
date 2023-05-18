@@ -14,9 +14,9 @@ class BarangKeluarController extends Controller
      */
     public function index()
     {
-        $recordsAll = BarangKeluar::all();
+        $allRecords = BarangKeluar::all();
 
-        return view('admin.barangKeluar', compact('recordsAll'));
+        return view('admin.barangKeluar', compact('allRecords'));
     }
 
     /**

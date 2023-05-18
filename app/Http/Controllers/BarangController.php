@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\IndexBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class BarangController extends Controller
 {
@@ -15,7 +16,10 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $allRecords = DB::table('barang')->select('kode_barang', 'nama_barang', 'spek', 'satuan')->get();
+        $allRecords = DB::table('barang')
+        ->select('kode_barang', 'nama_barang', 'spek', 'satuan')
+        ->orderBy('id', 'DESC')
+        ->get();
         return view('admin.daftarBarang', compact('allRecords'));
     }
 
@@ -26,7 +30,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.createBarang');
     }
 
     /**
@@ -37,7 +41,17 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $barang = new IndexBarang();
+
+        $barang->uuid = Str::uuid();
+        $barang->kode_barang = $request->kodeBarang;
+        $barang->nama_barang = $request->namaBarang;
+        $barang->spek = $request->spesifikasi;
+        $barang->satuan = $request->satuan;
+
+        $barang->save();
+
+        return redirect('/admin/daftar-barang');
     }
 
     /**
