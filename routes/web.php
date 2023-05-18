@@ -21,7 +21,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'dashboardAdmin']);
-    Route::get('/admin/daftar-barang', [BarangController::class, 'index']);
+    Route::get('/admin/daftar-barang', [BarangController::class, 'index'])->name('admin.daftar-barang');
     Route::get('/admin/daftar-barang/create', [BarangController::class, 'create']);
     Route::post('/admin/daftar-barang/store', [BarangController::class, 'store']);
     Route::get('/admin/barang-masuk', [BarangMasukController::class, 'index']);

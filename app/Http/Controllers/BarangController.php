@@ -51,7 +51,7 @@ class BarangController extends Controller
 
         $barang->save();
 
-        return redirect('/admin/daftar-barang')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('admin.daftar-barang')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**

@@ -6,6 +6,9 @@
     <div class="col-8">
         <div class="card">
             <div class="card-header">
+                <a href="{{ url('/admin/daftar-barang') }}" class="d-flex gap-2 mb-3">
+                    <i class="bi bi-arrow-left-short"></i>Kembali
+                </a>
                 <h3 class="card-title">Input Barang Baru</h3>
             </div>
             <div class="card-content">
@@ -85,7 +88,5 @@
 
 <script src="{{ url('/extensions/toastify-js/src/toastify.js') }}"></script>
 <script src="{{ url('/js/pages/toastify.js') }}"></script>
-<script type="text/javascript">
-</script>
 
 @endsection
