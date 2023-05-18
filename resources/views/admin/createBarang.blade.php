@@ -10,7 +10,8 @@
             </div>
             <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="{{ url('/admin/daftar-barang/store') }}" method="POST">
+                    <form class="form form-horizontal" method="POST" action="{{ url('/admin/daftar-barang/store') }}">
+                        @method('post')
                         @csrf
                         <div class="form-body">
                             <div class="row">
@@ -21,7 +22,7 @@
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
                                             <input type="text" name="kodeBarang" class="form-control" placeholder="Kode Barang"
-                                                id="kodeBarang">
+                                                id="kodeBarang" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-123"></i>
                                             </div>
@@ -35,7 +36,7 @@
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
                                             <input type="text" name="namaBarang" class="form-control" placeholder="Nama Barang"
-                                                id="namaBarang">
+                                                id="namaBarang" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-diagram-2"></i>
                                             </div>
@@ -48,7 +49,7 @@
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="spesifikasi" class="form-control" placeholder="Spesifikasi" id="spesifikasi">
+                                            <input type="text" name="spesifikasi" class="form-control" placeholder="Spesifikasi" id="spesifikasi" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-box"></i>
                                             </div>
@@ -61,7 +62,7 @@
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="satuan" class="form-control" placeholder="Satuan" id="satuan">
+                                            <input type="text" name="satuan" class="form-control" placeholder="Satuan" id="satuan" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-layers"></i>
                                             </div>
@@ -69,7 +70,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-end mt-4">
-                                    <button type="submit" class="btn btn-primary me-3 mb-1">Submit</button>
+                                    <button type="submit" id="btnSubmit" class="btn btn-primary me-3 mb-1">Submit</button>
                                     <button type="reset"
                                         class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                 </div>
@@ -81,5 +82,10 @@
         </div>
     </div>
 </div>
+
+<script src="{{ url('/extensions/toastify-js/src/toastify.js') }}"></script>
+<script src="{{ url('/js/pages/toastify.js') }}"></script>
+<script type="text/javascript">
+</script>
 
 @endsection

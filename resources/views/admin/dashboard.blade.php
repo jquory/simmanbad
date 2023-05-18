@@ -273,27 +273,6 @@
         <div class="card-body">
             <div id="chart-visitors-profile"></div>
         </div>
-
-        {{-- Loading --}}
-
-        {{-- <button class="btn-primary" id="btn-click">click test</button>
-        <div class="modal bg-opacity-25" style="background-color: rgba(0, 0, 0, 0.5); transition: 200ms ease-in-out" aria-labelledby="staticBackdropLabel" id="exampleModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content ">
-                    <div class="modal-body text-center">
-                        <img
-                            src="{{ url('/images/svg-loaders/ball-triangle.svg') }}"
-                            class="mb-2"
-                            style="width: 3rem;"
-                            alt="audio"
-                        />
-                        <p>Loading...</p>
-                        <button id="btn-dismiss">dismiss</button>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
     </div>
     
     

@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ url('/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}"/>
     <link rel="stylesheet" href="{{ url('/css/datatables.css') }}" />
     <link rel="stylesheet" href="{{ url('/css/fontawesome.css') }}" />
+    <link rel="stylesheet" href="{{ url('/extensions/toastify-js/src/toastify.css') }}">
+
 
     <link
         rel="shortcut icon"
