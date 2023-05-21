@@ -17,7 +17,7 @@ class BarangController extends Controller
     public function index()
     {
         $allRecords = DB::table('barang')
-        ->select('kode_barang', 'nama_barang', 'spek', 'satuan')
+        ->select('id', 'uuid', 'kode_barang', 'nama_barang', 'spek', 'satuan')
         ->orderBy('id', 'DESC')
         ->get();
         return view('admin.daftarBarang', compact('allRecords'));
@@ -51,7 +51,7 @@ class BarangController extends Controller
 
         $barang->save();
 
-        return redirect()->route('admin.daftar-barang')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('admin.daftar-barang')->with('added', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -71,9 +71,10 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        //
+        $idBarang = IndexBarang::whereUuid($uuid)->firstOrFail();
+        return view('admin.editBarang', compact('idBarang'));
     }
 
     /**
@@ -85,7 +86,15 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $barang = IndexBarang::find($id);
+        $barang->kode_barang = $request->kodeBarang;
+        $barang->nama_barang = $request->namaBarang;
+        $barang->spek = $request->spesifikasi;
+        $barang->satuan = $request->satuan;
+        $barang->update();
+
+        return redirect()->route('admin.daftar-barang')->with('updated', 'Data Berhasil di perbarui');
+
     }
 
     /**
@@ -96,6 +105,8 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idBarang = IndexBarang::find($id);
+        $idBarang->delete();
+        return redirect()->route('admin.daftar-barang')->with('deleted', 'Data Berhasil di perbarui');
     }
 }
