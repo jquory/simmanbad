@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BarangMasuk;
+use App\Models\IndexBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +28,11 @@ class BarangMasukController extends Controller
      */
     public function create()
     {
-        //
+        $barang = DB::table('barang')
+        ->select('nama_barang')
+        ->orderBy('id', 'desc')
+        ->get();
+        return view('admin.createBarangMasuk', compact('barang'));
     }
 
     /**
@@ -84,5 +89,24 @@ class BarangMasukController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function getProductDetails($productName) {
+        $productDetail = DB::table('barang')
+        ->select('kode_barang', 'satuan')
+        ->where('product_name', '=', $productName)
+        ->first();
+
+        if($productDetail) {
+            return response()->json([
+                'kode_barang' => $productDetail->kode_barang,
+                'satuan' => $productDetail->satuan
+            ]);
+        } else {
+            return response()->json([
+                'error' => 'Product not found',
+            ], 404);
+        }
     }
 }

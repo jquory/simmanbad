@@ -231,7 +231,7 @@
             <div class="d-flex align-items-center">
                 <div class="avatar avatar-xl">
                     <img
-                        src="{{ url('/images/faces/1.jpg') }}"
+                        src="{{ auth()->user()->image_url }}"
                         alt="Face 1"
                     />
                 </div>

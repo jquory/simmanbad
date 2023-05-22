@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\History;
 use App\Models\IndexBarang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -48,8 +50,14 @@ class BarangController extends Controller
         $barang->nama_barang = $request->namaBarang;
         $barang->spek = $request->spesifikasi;
         $barang->satuan = $request->satuan;
-
         $barang->save();
+
+        $history = new History();
+        $userInfo = Auth::user();
+        $history->id = Str::uuid();
+        $history->id_user = $userInfo->id;
+        $history->detail_history = 'Menambahkan ' . $request->namaBarang . ' pada data barang';
+        $history->save();
 
         return redirect()->route('admin.daftar-barang')->with('added', 'Data berhasil ditambahkan');
     }
@@ -93,6 +101,13 @@ class BarangController extends Controller
         $barang->satuan = $request->satuan;
         $barang->update();
 
+        $history = new History();
+        $userInfo = Auth::user();
+        $history->id = Str::uuid();
+        $history->id_user = $userInfo->id;
+        $history->detail_history = 'Memperbarui ' . $request->namaBarang . ' pada data barang';
+        $history->save();
+
         return redirect()->route('admin.daftar-barang')->with('updated', 'Data Berhasil di perbarui');
 
     }
@@ -106,7 +121,15 @@ class BarangController extends Controller
     public function destroy($id)
     {
         $idBarang = IndexBarang::find($id);
+
+        $history = new History();
+        $userInfo = Auth::user();
+        $history->id = Str::uuid();
+        $history->id_user = $userInfo->id;
+        $history->detail_history = 'Menghapus ' . $idBarang->namaBarang . ' pada data barang';
+        $history->save();
         $idBarang->delete();
+
         return redirect()->route('admin.daftar-barang')->with('deleted', 'Data Berhasil di perbarui');
     }
 }

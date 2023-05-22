@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <h4>List Barang Masuk</h4>
-            <button class="btn btn-primary">Tambah Transaksi</button>
+            <a href="{{ url('/admin/barang-masuk/create') }}" class="btn btn-primary">Tambah Transaksi</a>
         </div>
         <div class="card-body">
             <table class="table" id="table1">

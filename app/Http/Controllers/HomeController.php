@@ -33,6 +33,7 @@ class HomeController extends Controller
         $historyterakhir = DB::table('history')
         ->join('users', 'history.id_user', '=', 'users.id')
         ->select('history.*', 'users.name', 'users.image_url')
+        ->orderBy('history.created_at', 'desc')
         ->latest()
         ->take(4)
         ->get();
