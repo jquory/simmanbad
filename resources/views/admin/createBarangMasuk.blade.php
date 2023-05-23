@@ -24,10 +24,10 @@
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <select class="form-select" aria-label="Default select example" onchange="autoFill()" id="selectProduct">
+                                            <select name="namaBarang" class="form-select" aria-label="Default select example" onchange="autoFill()" id="selectProduct">
                                                 <option selected value="">Pilih Barang</option>
                                                 @foreach($barang as $barang)
-                                                <option value="{{ $barang->nama_barang }}">{{ $barang->nama_barang }}</option>
+                                                    <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -68,7 +68,7 @@
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="number" name="waktu" class="form-control" placeholder="Jumlah Masuk" id="jumlah" required>
+                                            <input type="number" name="jumlah" class="form-control" placeholder="Jumlah Masuk" id="jumlah" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-123"></i>
                                             </div>
@@ -104,12 +104,15 @@
 
 <script type="text/javascript">
     function autoFill() {
-        const productName = document.getElementById('selectProduct').value
-        if(productName) {
-            const url = '/admin/barang-masuk/getDetail/' + productName
+        const id = document.getElementById('selectProduct').value
+        if(id) {
+            const url = '/admin/barang-masuk/getDetail/' + id
             fetch(url)
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                const kodeBarang = document.getElementById('kodeBarang').value = data.kode_barang
+                const satuan = document.getElementById('satuan').value = data.satuan
+            })
         }
 
     }

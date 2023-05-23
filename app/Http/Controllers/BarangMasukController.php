@@ -6,6 +6,7 @@ use App\Models\BarangMasuk;
 use App\Models\IndexBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class BarangMasukController extends Controller
 {
@@ -29,7 +30,7 @@ class BarangMasukController extends Controller
     public function create()
     {
         $barang = DB::table('barang')
-        ->select('nama_barang')
+        ->select('id', 'nama_barang')
         ->orderBy('id', 'desc')
         ->get();
         return view('admin.createBarangMasuk', compact('barang'));
@@ -43,7 +44,21 @@ class BarangMasukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $barangMasuk = new BarangMasuk();
+
+        $namaBarang = DB::table('barang')->select('nama_barang')->where('id', '=', $request->namaBarang)->get();
+
+        $barangMasuk->id = Str::uuid();
+        $barangMasuk->id_barang = $request->namaBarang;
+        $barangMasuk->nama_barang = $namaBarang;
+        $barangMasuk->kode_barang = $request->kodeBarang;
+        $barangMasuk->satuan = $request->satuan;
+        $barangMasuk->waktu_masuk = $request->waktu;
+        $barangMasuk->jumlah_masuk = $request->jumlah;
+
+        $barangMasuk->save();
+
+        return redirect()->route('admin.barang-masuk')->with('added', 'Barang Masuk berhasil ditambahkan');
     }
 
     /**
@@ -92,21 +107,15 @@ class BarangMasukController extends Controller
     }
 
 
-    public function getProductDetails($productName) {
+    public function getProductDetails($id) {
         $productDetail = DB::table('barang')
-        ->select('kode_barang', 'satuan')
-        ->where('product_name', '=', $productName)
+        ->select('id', 'kode_barang', 'satuan')
+        ->where('id', '=', $id)
         ->first();
 
-        if($productDetail) {
-            return response()->json([
-                'kode_barang' => $productDetail->kode_barang,
-                'satuan' => $productDetail->satuan
-            ]);
-        } else {
-            return response()->json([
-                'error' => 'Product not found',
-            ], 404);
-        }
+        return response()->json([
+            'kode_barang' => $productDetail->kode_barang,
+            'satuan' => $productDetail->satuan
+        ]);
     }
 }

@@ -20,7 +20,11 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 });
 
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
+
+    // Auth
     Route::get('/admin/dashboard', [HomeController::class, 'dashboardAdmin']);
+    Route::get('/admin/logout', [AuthController::class, 'logout']);
+
 
     // Crud Daftar Barang
     Route::get('/admin/daftar-barang', [BarangController::class, 'index'])->name('admin.daftar-barang');
@@ -31,15 +35,19 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::delete('/admin/daftar-barang/{id}', [BarangController::class, 'destroy']);
 
     // Crud Barang Masuk
-    Route::get('/admin/barang-masuk', [BarangMasukController::class, 'index']);
+    Route::get('/admin/barang-masuk', [BarangMasukController::class, 'index'])->name('admin.barang-masuk');
     Route::get('/admin/barang-masuk/create', [BarangMasukController::class, 'create']);
-    Route::get('/admin/barang-masuk/getDetail/{productName}', [BarangMasukController::class, 'getProductDetails']);
+    Route::get('/admin/barang-masuk/getDetail/{id}', [BarangMasukController::class, 'getProductDetails']);
     Route::post('/admin/barang-masuk/store', [BarangMasukController::class, 'store']);
     Route::get('/admin/barang-masuk/{uuid}/edit', [BarangMasukController::class, 'edit']);
     Route::put('/admin/barang-masuk/{id}', [BarangMasukController::class, 'update']);
     Route::delete('/admin/barang-masuk/{id}', [BarangMasukController::class, 'destroy']);
 
-
+    // Crud Barang Keluar
     Route::get('/admin/barang-keluar', [BarangKeluarController::class, 'index']);
-    Route::get('/admin/logout', [AuthController::class, 'logout']);
+
+    // Crud History
+
+
+    // Crud Akun
 });

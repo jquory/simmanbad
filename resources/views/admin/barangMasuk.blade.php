@@ -3,6 +3,48 @@
 @section('content')
 <section class="section">
     <div class="card">
+
+        @if(session('added'))
+            <div class="toast-container position-fixed top-0 end-50 start-50 p-3">
+                <div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header ">
+                    <div class="p-2 bg-success rounded-4 me-2"></div>
+                    <strong class="me-auto">Berhasil</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body text-bg-success">
+                    Data barang masuk berhasil ditambahkan.
+                </div>
+                </div>
+            </div>
+        @elseif(session('updated'))
+            <div class="toast-container position-fixed top-0 end-50 start-50 p-3">
+                <div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header ">
+                    <div class="p-2 bg-success rounded-4 me-2"></div>
+                    <strong class="me-auto">Berhasil</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body text-bg-success">
+                    Data barang masuk berhasil Diperbarui.
+                </div>
+                </div>
+            </div>
+        @elseif(session('deleted'))
+            <div class="toast-container position-fixed top-0 end-50 start-50 p-3">
+                <div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header ">
+                    <div class="p-2 bg-success rounded-4 me-2"></div>
+                    <strong class="me-auto">Berhasil</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body text-bg-success">
+                    Data barang masuk berhasil Dihapus.
+                </div>
+                </div>
+            </div>
+        @endif
+
         <div class="card-header d-flex justify-content-between">
             <h4>List Barang Masuk</h4>
             <a href="{{ url('/admin/barang-masuk/create') }}" class="btn btn-primary">Tambah Transaksi</a>
@@ -58,6 +100,10 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     }, false);
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var myToast = new bootstrap.Toast(document.getElementById('myToast'));
+    myToast.show();
 
 $('#table1').datatable();
 </script>
