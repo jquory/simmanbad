@@ -15,15 +15,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('history', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')
             ->references('id')
             ->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->text('detail_history');
             $table->timestamps();
-
-            $table->primary('id');
         });
     }
 

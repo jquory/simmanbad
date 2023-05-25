@@ -3,9 +3,52 @@
 @section('content')
 <section class="section">
     <div class="card">
+
+        @if(session('tertambah'))
+            <div class="toast-container position-fixed top-0 end-50 start-50 p-3">
+                <div id="masukToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header ">
+                    <div class="p-2 bg-success rounded-4 me-2"></div>
+                    <strong class="me-auto">Berhasil</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body text-bg-success">
+                    Data barang keluar berhasil ditambahkan.
+                </div>
+                </div>
+            </div>
+        @elseif(session('terbarui'))
+            <div class="toast-container position-fixed top-0 end-50 start-50 p-3">
+                <div id="masukToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header ">
+                    <div class="p-2 bg-success rounded-4 me-2"></div>
+                    <strong class="me-auto">Berhasil</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body text-bg-success">
+                    Data barang keluar berhasil Diperbarui.
+                </div>
+                </div>
+            </div>
+        @elseif(session('terhapus'))
+            <div class="toast-container position-fixed top-0 end-50 start-50 p-3">
+                <div id="masukToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header ">
+                    <div class="p-2 bg-success rounded-4 me-2"></div>
+                    <strong class="me-auto">Berhasil</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body text-bg-success">
+                    Data barang keluar berhasil Dihapus.
+                </div>
+                </div>
+            </div>
+        @endif
+
+
         <div class="card-header d-flex justify-content-between">
             <h4>List Barang Keluar</h4>
-            <button class="btn btn-primary">Tambah Transaksi</button>
+            <a href="{{ url('admin/barang-keluar/create') }}" class="btn btn-primary">Tambah Transaksi</a>
         </div>
         <div class="card-body">
             <table class="table" id="table1">
@@ -31,14 +74,39 @@
                             <td>{{ $record->jumlah_keluar }}</td>
                             <td>{{ $record->waktu_keluar }}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-title="Edit">
+                                <a href="{{ url('/admin/barang-keluar/'.$record->uuid.'/edit') }}" type="button" class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-title="Edit">
                                     <i class="bi bi-pen-fill"></i>
-                                </button>
-                                <button class="btn btn-danger" data-bs-toggle="tooltip" data-bs-title="Hapus">
+                                </a>
+                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-toggle="tooltip" data-bs-title="Hapus">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                             </td>
                         </tr>
+
+
+                        {{-- Delete Modal --}}
+
+                        <div class="modal modal-borderless fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title text-danger fs-5" id="exampleModalLabel">Hapus Data</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Data yang dihapus tidak dapat dikembalikan. Yakin ingin menghapus data?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <form action="{{ url('/admin/barang-keluar/' . $record->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     @endforeach
                 </tbody>
@@ -58,6 +126,11 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     }, false);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var myToast = new bootstrap.Toast(document.getElementById('masukToast'));
+        myToast.show();
+    });
 
 $('#table1').datatable();
 </script>

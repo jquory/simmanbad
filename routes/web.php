@@ -4,7 +4,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
+use App\Models\BarangKeluar;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/', [AuthController::class, 'index'])->name('login');
@@ -44,10 +46,16 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::delete('/admin/barang-masuk/{id}', [BarangMasukController::class, 'destroy']);
 
     // Crud Barang Keluar
-    Route::get('/admin/barang-keluar', [BarangKeluarController::class, 'index']);
+    Route::get('/admin/barang-keluar', [BarangKeluarController::class, 'index'])->name('admin.barang-keluar');
+    Route::get('/admin/barang-keluar/create', [BarangKeluarController::class, 'create']);
+    Route::get('/admin/barang-keluar/getDetail/{id}', [BarangKeluarController::class, 'getProductDetails']);
+    Route::post('/admin/barang-keluar/store', [BarangKeluarController::class, 'store']);
+    Route::get('/admin/barang-keluar/{uuid}/edit', [BarangKeluarController::class, 'edit']);
+    Route::put('/admin/barang-keluar/{id}', [BarangKeluarController::class, 'update']);
+    Route::delete('/admin/barang-keluar/{id}', [BarangKeluarController::class, 'destroy']);
 
-    // Crud History
-
+    // History Route
+    Route::get('/admin/history', [HistoryController::class, 'index']);
 
     // Crud Akun
 });

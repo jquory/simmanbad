@@ -15,7 +15,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('barang_keluar', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->bigIncrements('id');
+            $table->uuid('uuid');
             $table->unsignedBigInteger('id_barang');
             $table->foreign('id_barang')
             ->references('id')
@@ -28,8 +29,6 @@ return new class extends Migration
             $table->integer('jumlah_keluar');
             $table->string('waktu_keluar');
             $table->timestamps();
-
-            $table->primary('id');
         });
     }
 

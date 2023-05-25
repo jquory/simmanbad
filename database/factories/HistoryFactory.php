@@ -20,7 +20,6 @@ class HistoryFactory extends Factory
     public function definition()
     {
         return [
-            'id' => Str::uuid(),
             'id_user' => function() {
                 return User::factory()->create()->id;
             },

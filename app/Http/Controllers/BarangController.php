@@ -54,7 +54,6 @@ class BarangController extends Controller
 
         $history = new History();
         $userInfo = Auth::user();
-        $history->id = Str::uuid();
         $history->id_user = $userInfo->id;
         $history->detail_history = 'Menambahkan ' . $request->namaBarang . ' pada data barang';
         $history->save();
@@ -103,7 +102,6 @@ class BarangController extends Controller
 
         $history = new History();
         $userInfo = Auth::user();
-        $history->id = Str::uuid();
         $history->id_user = $userInfo->id;
         $history->detail_history = 'Memperbarui ' . $request->namaBarang . ' pada data barang';
         $history->save();
@@ -124,7 +122,6 @@ class BarangController extends Controller
 
         $history = new History();
         $userInfo = Auth::user();
-        $history->id = Str::uuid();
         $history->id_user = $userInfo->id;
         $history->detail_history = 'Menghapus ' . $idBarang->nama_barang . ' pada data barang';
         $history->save();

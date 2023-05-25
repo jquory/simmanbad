@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\BarangKeluar;
+use App\Models\History;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class BarangKeluarController extends Controller
 {
@@ -14,7 +18,10 @@ class BarangKeluarController extends Controller
      */
     public function index()
     {
-        $allRecords = BarangKeluar::all();
+        $allRecords = DB::table('barang_keluar')
+        ->select('id', 'uuid', 'kode_barang', 'nama_barang', 'jumlah_keluar', 'satuan', 'waktu_keluar', 'created_at')
+        ->orderBy('created_at', 'desc')
+        ->get();
 
         return view('admin.barangKeluar', compact('allRecords'));
     }
@@ -26,7 +33,11 @@ class BarangKeluarController extends Controller
      */
     public function create()
     {
-        //
+        $barang = DB::table('barang_keluar')
+        ->select('id_barang', 'nama_barang', 'created_at')
+        ->orderBy('created_at', 'desc')
+        ->get();
+        return view('admin.createBarangKeluar', compact('barang'));
     }
 
     /**
@@ -37,7 +48,27 @@ class BarangKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $barangKeluar = new BarangKeluar();
+
+        $namaBarang = DB::table('barang_keluar')->select('nama_barang')->where('id_barang', '=', $request->namaBarang)->first();
+
+        $barangKeluar->id = Str::uuid();
+        $barangKeluar->id_barang = $request->namaBarang;
+        $barangKeluar->nama_barang = $namaBarang->nama_barang;
+        $barangKeluar->kode_barang = $request->kodeBarang;
+        $barangKeluar->satuan = $request->satuan;
+        $barangKeluar->waktu_keluar = $request->waktu;
+        $barangKeluar->jumlah_keluar = $request->jumlah;
+
+        $history = new History();
+        $userInfo = Auth::user();
+        $history->id_user = $userInfo->id;
+        $history->detail_history = 'Menambahkan data "' . $barangKeluar->nama_barang . '" pada barang keluar';
+        $history->save();
+
+        $barangKeluar->save();
+
+        return redirect()->route('admin.barang-keluar')->with('tertambah', 'Barang Masuk berhasil ditambahkan');
     }
 
     /**
@@ -57,9 +88,10 @@ class BarangKeluarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        //
+        $idBarang = BarangKeluar::whereUuid($uuid)->firstOrFail();
+        return view('admin.editBarangKeluar', compact('idBarang'));
     }
 
     /**
@@ -71,7 +103,21 @@ class BarangKeluarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $barang = BarangKeluar::find($id);
+        $barang->nama_barang = $request->namaBarang;
+        $barang->kode_barang = $request->kodeBarang;
+        $barang->satuan = $request->satuan;
+        $barang->jumlah_keluar = $request->jumlah;
+        $barang->waktu_keluar = $request->waktu;
+        $barang->update();
+
+        $history = new History();
+        $userInfo = Auth::user();
+        $history->id_user = $userInfo->id;
+        $history->detail_history = 'Memperbarui data "' . $barang->nama_barang . '" pada barang masuk';
+        $history->save();
+
+        return redirect()->route('admin.barang-keluar')->with('terbarui', 'Data Berhasil di perbarui');
     }
 
     /**
@@ -82,6 +128,26 @@ class BarangKeluarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idBarang = BarangKeluar::find($id);
+        $history = new History();
+        $userInfo = Auth::user();
+        $history->id_user = $userInfo->id;
+        $history->detail_history = 'Menghapus "' . $idBarang->nama_barang . '" pada data barang masuk';
+        $history->save();
+        $idBarang->delete();
+
+        return redirect()->route('admin.barang-keluar')->with('terhapus', 'Data Berhasil dihapus');
+    }
+
+    public function getProductDetails($id) {
+        $productDetail = DB::table('barang')
+        ->select('id', 'kode_barang', 'satuan')
+        ->where('id', '=', $id)
+        ->first();
+
+        return response()->json([
+            'kode_barang' => $productDetail->kode_barang,
+            'satuan' => $productDetail->satuan
+        ]);
     }
 }

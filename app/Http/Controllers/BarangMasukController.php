@@ -60,6 +60,12 @@ class BarangMasukController extends Controller
         $barangMasuk->waktu_masuk = $request->waktu;
         $barangMasuk->jumlah_masuk = $request->jumlah;
 
+        $history = new History();
+        $userInfo = Auth::user();
+        $history->id_user = $userInfo->id;
+        $history->detail_history = 'Menambahkan data "' . $barangMasuk->nama_barang . '" pada barang masuk';
+        $history->save();
+
         $barangMasuk->save();
 
         return redirect()->route('admin.barang-masuk')->with('ditambahkan', 'Barang Masuk berhasil ditambahkan');
@@ -107,7 +113,6 @@ class BarangMasukController extends Controller
 
         $history = new History();
         $userInfo = Auth::user();
-        $history->id = Str::uuid();
         $history->id_user = $userInfo->id;
         $history->detail_history = 'Memperbarui data "' . $barang->nama_barang . '" pada barang masuk';
         $history->save();
@@ -126,7 +131,6 @@ class BarangMasukController extends Controller
         $idBarang = BarangMasuk::find($id);
         $history = new History();
         $userInfo = Auth::user();
-        $history->id = Str::uuid();
         $history->id_user = $userInfo->id;
         $history->detail_history = 'Menghapus ' . $idBarang->nama_barang . ' pada data barang masuk';
         $history->save();

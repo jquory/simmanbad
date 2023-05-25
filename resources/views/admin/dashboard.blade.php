@@ -284,11 +284,8 @@
 
 let recordKeluar = JSON.parse('{!! $recordsKeluar !!}');
 let recordMasuk = JSON.parse('{!! $recordsMasuk !!}');
-let historyData = JSON.parse('{!! $historyterakhir !!}');
 let jsonUser = JSON.parse('{!! $totaluser !!}');
 let jsonAdmin = JSON.parse('{!! $totaladmin !!}');
-console.log(recordKeluar, recordMasuk)
-
 
 let optionBarangMasuk = {
     annotations: {
