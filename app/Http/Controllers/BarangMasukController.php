@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\BarangMasuk;
-use App\Models\IndexBarang;
+use App\Models\History;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -17,7 +18,10 @@ class BarangMasukController extends Controller
      */
     public function index()
     {
-        $allRecords = DB::table('barang_masuk')->select('kode_barang', 'nama_barang', 'jumlah_masuk', 'satuan', 'waktu_masuk')->get();;
+        $allRecords = DB::table('barang_masuk')
+        ->select('id', 'uuid', 'kode_barang', 'nama_barang', 'jumlah_masuk', 'satuan', 'waktu_masuk')
+        ->orderBy('id', 'desc')
+        ->get();;
 
         return view('admin.barangMasuk', compact('allRecords'));
     }
@@ -46,11 +50,11 @@ class BarangMasukController extends Controller
     {
         $barangMasuk = new BarangMasuk();
 
-        $namaBarang = DB::table('barang')->select('nama_barang')->where('id', '=', $request->namaBarang)->get();
+        $namaBarang = DB::table('barang')->select('nama_barang')->where('id', '=', $request->namaBarang)->first();
 
-        $barangMasuk->id = Str::uuid();
+        $barangMasuk->uuid = Str::uuid();
         $barangMasuk->id_barang = $request->namaBarang;
-        $barangMasuk->nama_barang = $namaBarang;
+        $barangMasuk->nama_barang = $namaBarang->nama_barang;
         $barangMasuk->kode_barang = $request->kodeBarang;
         $barangMasuk->satuan = $request->satuan;
         $barangMasuk->waktu_masuk = $request->waktu;
@@ -58,7 +62,7 @@ class BarangMasukController extends Controller
 
         $barangMasuk->save();
 
-        return redirect()->route('admin.barang-masuk')->with('added', 'Barang Masuk berhasil ditambahkan');
+        return redirect()->route('admin.barang-masuk')->with('ditambahkan', 'Barang Masuk berhasil ditambahkan');
     }
 
     /**
@@ -78,9 +82,10 @@ class BarangMasukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        //
+        $idBarang = BarangMasuk::whereUuid($uuid)->firstOrFail();
+        return view('admin.editBarangMasuk', compact('idBarang'));
     }
 
     /**
@@ -92,7 +97,22 @@ class BarangMasukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $barang = BarangMasuk::find($id);
+        $barang->nama_barang = $request->namaBarang;
+        $barang->kode_barang = $request->kodeBarang;
+        $barang->satuan = $request->satuan;
+        $barang->jumlah_masuk = $request->jumlah;
+        $barang->waktu_masuk = $request->waktu;
+        $barang->update();
+
+        $history = new History();
+        $userInfo = Auth::user();
+        $history->id = Str::uuid();
+        $history->id_user = $userInfo->id;
+        $history->detail_history = 'Memperbarui data "' . $barang->nama_barang . '" pada barang masuk';
+        $history->save();
+
+        return redirect()->route('admin.barang-masuk')->with('masukUpdated', 'Data Berhasil di perbarui');
     }
 
     /**
@@ -103,7 +123,16 @@ class BarangMasukController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idBarang = BarangMasuk::find($id);
+        $history = new History();
+        $userInfo = Auth::user();
+        $history->id = Str::uuid();
+        $history->id_user = $userInfo->id;
+        $history->detail_history = 'Menghapus ' . $idBarang->nama_barang . ' pada data barang masuk';
+        $history->save();
+        $idBarang->delete();
+
+        return redirect()->route('admin.barang-masuk')->with('masukDeleted', 'Data Berhasil dihapus');
     }
 
 

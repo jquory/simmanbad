@@ -126,7 +126,7 @@ class BarangController extends Controller
         $userInfo = Auth::user();
         $history->id = Str::uuid();
         $history->id_user = $userInfo->id;
-        $history->detail_history = 'Menghapus ' . $idBarang->namaBarang . ' pada data barang';
+        $history->detail_history = 'Menghapus ' . $idBarang->nama_barang . ' pada data barang';
         $history->save();
         $idBarang->delete();
 

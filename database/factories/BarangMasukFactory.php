@@ -21,7 +21,7 @@ class BarangMasukFactory extends Factory
     {
         $indexbarang = IndexBarang::factory()->create();
         return [
-            'id' => Str::uuid(),
+            'uuid' => Str::uuid(),
             'id_barang' => $indexbarang->id,
             'nama_barang' => $indexbarang->nama_barang,
             'kode_barang' => $indexbarang->kode_barang,

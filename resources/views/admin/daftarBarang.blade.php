@@ -121,9 +121,9 @@
     }, false);
 
     document.addEventListener('DOMContentLoaded', function() {
-    var myToast = new bootstrap.Toast(document.getElementById('myToast'));
-    myToast.show();
-});
+        var myToast = new bootstrap.Toast(document.getElementById('myToast'));
+        myToast.show();
+    });
 </script>
 <script src="{{ url('/extensions/jquery/jquery.min.js') }}"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
