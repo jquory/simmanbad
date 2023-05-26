@@ -76,6 +76,28 @@
                         </a>
                     </li>
 
+                    <li class="sidebar-title">Laporan</li>
+
+                    <li class="{{ (request()->is('admin/akun')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('admin/akun') }}" class="sidebar-link">
+                            <i class="bi bi-patch-plus-fill"></i>
+                            <span>Laporan Barang Masuk</span>
+                        </a>
+                    </li>
+                    <li class="{{ (request()->is('admin/akun')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('admin/akun') }}" class="sidebar-link">
+                            <i class="bi bi-patch-minus-fill"></i>
+                            <span>Laporan Barang Keluar</span>
+                        </a>
+                    </li>
+                    <li class="{{ (request()->is('admin/akun')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('admin/akun') }}" class="sidebar-link">
+                            <i class="bi bi-calendar2-range-fill"></i>
+                            <span>Laporan Akhir</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-title">Session</li>
                     <li class="sidebar-item">
                         <a
                             type="button"
