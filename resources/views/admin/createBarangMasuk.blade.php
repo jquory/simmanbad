@@ -105,7 +105,7 @@
 <script type="text/javascript">
     function autoFill() {
         const id = document.getElementById('selectProduct').value
-        if(id) {
+        if(id !== "") {
             const url = '/admin/barang-masuk/getDetail/' + id
             fetch(url)
             .then(res => res.json())
@@ -113,6 +113,9 @@
                 const kodeBarang = document.getElementById('kodeBarang').value = data.kode_barang
                 const satuan = document.getElementById('satuan').value = data.satuan
             })
+        } else {
+            const kodeBarang = document.getElementById('kodeBarang').value = ""
+            const satuan = document.getElementById('satuan').value = ""
         }
 
     }

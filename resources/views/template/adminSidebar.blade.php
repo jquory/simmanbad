@@ -70,7 +70,7 @@
                     <li class="sidebar-title">Akun</li>
 
                     <li class="{{ (request()->is('admin/akun')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/akun') }}" class="sidebar-link">
+                        <a href="{{ url('admin/daftar-pengguna') }}" class="sidebar-link">
                             <i class="bi bi-people-fill"></i>
                             <span>Daftar Pengguna</span>
                         </a>

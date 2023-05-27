@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PenggunaController;
 use App\Models\BarangKeluar;
 use Illuminate\Support\Facades\Route;
 
@@ -58,4 +59,5 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/history', [HistoryController::class, 'index']);
 
     // Crud Akun
+    Route::get('/admin/daftar-pengguna', [PenggunaController::class, 'index']);
 });
