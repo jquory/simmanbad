@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->string('spek');
             $table->string('satuan');
+            $table->string('harga');
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('index_barang');
+        Schema::dropIfExists('barang');
     }
 };

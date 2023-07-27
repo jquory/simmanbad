@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('kode_barang');
             $table->string('satuan');
             $table->integer('jumlah_keluar');
-            $table->string('waktu_keluar');
+            $table->date('waktu_keluar');
             $table->timestamps();
         });
     }

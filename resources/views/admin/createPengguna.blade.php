@@ -6,98 +6,72 @@
     <div class="col-8">
         <div class="card">
             <div class="card-header">
-                <a href="{{ url('/admin/daftar-barang') }}" class="d-flex gap-2 mb-3">
+                <a href="{{ url('/admin/daftar-pengguna') }}" class="d-flex gap-2 mb-3">
                     <i class="bi bi-arrow-left-short"></i>Kembali
                 </a>
-                <h3 class="card-title">Input Barang Baru</h3>
+                <h3 class="card-title">Tambahkan Pengguna Baru</h3>
             </div>
             <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" method="POST" action="{{ url('/admin/daftar-barang/store') }}">
+                    <form class="form form-horizontal" method="POST" action="{{ url('/admin/daftar-pengguna/store') }}">
                         @method('post')
                         @csrf
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-md-4 mb-2">
-                                    <label>Kode Barang</label>
+                                    <label>Nama</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="kodeBarang" class="form-control"
-                                                placeholder="Kode Barang" id="kodeBarang" required>
+                                            <input type="text" name="nama" class="form-control"
+                                                placeholder="Nama Pengguna" id="nama" required>
                                             <div class="form-control-icon">
-                                                <i class="bi bi-123"></i>
+                                                <i class="bi bi-person"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-2">
+                                    <label>Username</label>
+                                </div>
+                                <div class="col-md-8 mb-2">
+                                    <div class="form-group has-icon-left">
+                                        <div class="position-relative">
+                                            <input type="text" name="username" class="form-control"
+                                                placeholder="Username Pengguna" id="username" required>
+                                            <div class="form-control-icon">
+                                                <i class="bi bi-person-plus"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-2">
+                                    <label>Password</label>
+                                </div>
+                                <div class="col-md-8 mb-2">
+                                    <div class="form-group has-icon-left">
+                                        <div class="position-relative">
+                                            <input type="password" name="password" class="form-control"
+                                                placeholder="************" id="satuan" required>
+                                            <div class="form-control-icon">
+                                                <i class="bi bi-key"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label>Nama Barang</label>
+                                    <label>No telp</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="namaBarang" class="form-control"
-                                                placeholder="Nama Barang" id="namaBarang" required>
+                                            <input type="number" name="no_telp" class="form-control"
+                                                placeholder="082189898989" id="no_telp" required>
                                             <div class="form-control-icon">
-                                                <i class="bi bi-diagram-2"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <label>Spesifikasi</label>
-                                </div>
-                                <div class="col-md-8 mb-2">
-                                    <div class="form-group has-icon-left">
-                                        <div class="position-relative">
-                                            <input type="text" name="spesifikasi" class="form-control"
-                                                placeholder="Spesifikasi" id="spesifikasi" required>
-                                            <div class="form-control-icon">
-                                                <i class="bi bi-box"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <label>Satuan</label>
-                                </div>
-                                <div class="col-md-8 mb-2">
-                                    <div class="form-group has-icon-left">
-                                        <div class="position-relative">
-                                            <input type="text" name="satuan" class="form-control" placeholder="Satuan"
-                                                id="satuan" required>
-                                            <div class="form-control-icon">
-                                                <i class="bi bi-layers"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <label>Harga Barang</label>
-                                </div>
-                                <div class="col-md-8 mb-2">
-                                    <div class="form-group has-icon-left">
-                                        <div class="position-relative">
-                                            <input type="number" name="harga" class="form-control" placeholder="50000"
-                                                id="harga" required>
-                                            <div class="form-control-icon">
-                                                <i class="bi bi-cash"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <label>Stok Awal</label>
-                                </div>
-                                <div class="col-md-8 mb-2">
-                                    <div class="form-group has-icon-left">
-                                        <div class="position-relative">
-                                            <input type="number" name="stok_awal" class="form-control"
-                                                placeholder="Stok Awal" id="stok_awal" required>
-                                            <div class="form-control-icon">
-                                                <i class="bi bi-inboxes"></i>
+                                                <i class="bi bi-telephone"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +89,6 @@
         </div>
     </div>
 </div>
-
 <script src="{{ url('/extensions/toastify-js/src/toastify.js') }}"></script>
 <script src="{{ url('/js/pages/toastify.js') }}"></script>
 

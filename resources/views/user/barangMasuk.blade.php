@@ -1,4 +1,4 @@
-@extends('template.adminSidebar')
+@extends('template.userSidebar')
 
 @section('content')
 <section class="section">
@@ -47,7 +47,7 @@
 
         <div class="card-header d-flex justify-content-between">
             <h4>List Barang Masuk</h4>
-            <a href="{{ url('/admin/barang-masuk/create') }}" class="btn btn-primary">Tambah Transaksi</a>
+            <a href="{{ url('/user/barang-masuk/create') }}" class="btn btn-primary">Tambah Transaksi</a>
         </div>
         <div class="card-body">
             <table class="table" id="table1">
@@ -59,7 +59,6 @@
                         <th>Satuan</th>
                         <th>Jumlah Masuk</th>
                         <th>Waktu Masuk</th>
-                        <th>aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,44 +71,7 @@
                         <td>{{ $record->satuan }}</td>
                         <td>{{ $record->jumlah_masuk }}</td>
                         <td>{{ $record->waktu_masuk }}</td>
-                        <td>
-                            <a type="button" href="{{ url('/admin/barang-masuk/' . $record->uuid . '/edit') }}"
-                                class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-title="Edit">
-                                <i class="bi bi-pen-fill"></i>
-                            </a>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                data-bs-toggle="tooltip" data-bs-title="Hapus">
-                                <i class="bi bi-trash-fill"></i>
-                            </button>
-                        </td>
                     </tr>
-
-                    {{-- Delete Modal --}}
-
-                    <div class="modal modal-borderless fade" id="deleteModal" tabindex="-1"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title text-danger fs-5" id="exampleModalLabel">Hapus Data</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Data yang dihapus tidak dapat dikembalikan. Yakin ingin menghapus data?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Batal</button>
-                                    <form action="{{ url('/admin/barang-masuk/' . $record->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     @endforeach
                 </tbody>

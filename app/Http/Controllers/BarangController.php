@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\History;
 use App\Models\IndexBarang;
+use App\Models\Stok;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,10 +19,10 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $allRecords = DB::table('barang')
-        ->select('id', 'uuid', 'kode_barang', 'nama_barang', 'spek', 'satuan')
-        ->orderBy('id', 'DESC')
-        ->get();
+        $allRecords = IndexBarang::select('barang.id', 'barang.uuid', 'barang.kode_barang', 'barang.nama_barang', 'barang.spek', 'barang.satuan', 'stock.stok_awal', 'stock.stok_akhir')
+    ->leftJoin('stock', 'barang.id', '=', 'stock.id_barang')
+    ->orderBy('barang.id', 'DESC')
+    ->get();
         return view('admin.daftarBarang', compact('allRecords'));
     }
 
@@ -50,7 +51,15 @@ class BarangController extends Controller
         $barang->nama_barang = $request->namaBarang;
         $barang->spek = $request->spesifikasi;
         $barang->satuan = $request->satuan;
+        $barang->harga = $request->harga;
         $barang->save();
+
+        $stok = new Stok();
+        $stok->id = Str::uuid();
+        $stok->id_barang = $barang->id;
+        $stok->stok_awal = $request->stok_awal;
+        $stok->stok_akhir = $request->stok_awal;
+        $stok->save();
 
         $history = new History();
         $userInfo = Auth::user();

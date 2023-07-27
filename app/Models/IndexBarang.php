@@ -18,5 +18,6 @@ class IndexBarang extends Model
         'nama_barang',
         'spek',
         'satuan',
+        'harga'
     ];
 }

@@ -26,6 +26,16 @@ class BarangMasukController extends Controller
         return view('admin.barangMasuk', compact('allRecords'));
     }
 
+    public function indexUser()
+    {
+        $allRecords = DB::table('barang_masuk')
+        ->select('id', 'uuid', 'kode_barang', 'nama_barang', 'jumlah_masuk', 'satuan', 'waktu_masuk')
+        ->orderBy('id', 'desc')
+        ->get();;
+
+        return view('user.barangMasuk', compact('allRecords'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -38,6 +48,15 @@ class BarangMasukController extends Controller
         ->orderBy('id', 'desc')
         ->get();
         return view('admin.createBarangMasuk', compact('barang'));
+    }
+
+    public function userCreate()
+    {
+        $barang = DB::table('barang')
+        ->select('id', 'nama_barang')
+        ->orderBy('id', 'desc')
+        ->get();
+        return view('user.createBarangMasuk', compact('barang'));
     }
 
     /**
@@ -60,6 +79,10 @@ class BarangMasukController extends Controller
         $barangMasuk->waktu_masuk = $request->waktu;
         $barangMasuk->jumlah_masuk = $request->jumlah;
 
+        $stok = DB::table('stock')->select('stok_akhir')->where('id_barang', '=', $request->namaBarang)->first();
+        $stok_akhir_baru = $stok->stok_akhir + $request->jumlah;
+        DB::table('stock')->where('id_barang', '=', $request->namaBarang)->update(['stok_akhir' => $stok_akhir_baru]);
+
         $history = new History();
         $userInfo = Auth::user();
         $history->id_user = $userInfo->id;
@@ -69,6 +92,35 @@ class BarangMasukController extends Controller
         $barangMasuk->save();
 
         return redirect()->route('admin.barang-masuk')->with('ditambahkan', 'Barang Masuk berhasil ditambahkan');
+    }
+
+    public function userStore(Request $request)
+    {
+        $barangMasuk = new BarangMasuk();
+
+        $namaBarang = DB::table('barang')->select('nama_barang')->where('id', '=', $request->namaBarang)->first();
+
+        $barangMasuk->uuid = Str::uuid();
+        $barangMasuk->id_barang = $request->namaBarang;
+        $barangMasuk->nama_barang = $namaBarang->nama_barang;
+        $barangMasuk->kode_barang = $request->kodeBarang;
+        $barangMasuk->satuan = $request->satuan;
+        $barangMasuk->waktu_masuk = $request->waktu;
+        $barangMasuk->jumlah_masuk = $request->jumlah;
+
+        $stok = DB::table('stock')->select('stok_akhir')->where('id_barang', '=', $request->namaBarang)->first();
+        $stok_akhir_baru = $stok->stok_akhir + $request->jumlah;
+        DB::table('stock')->where('id_barang', '=', $request->namaBarang)->update(['stok_akhir' => $stok_akhir_baru]);
+
+        $history = new History();
+        $userInfo = Auth::user();
+        $history->id_user = $userInfo->id;
+        $history->detail_history = 'Menambahkan data "' . $barangMasuk->nama_barang . '" pada barang masuk';
+        $history->save();
+
+        $barangMasuk->save();
+
+        return redirect()->route('user.barang-masuk')->with('ditambahkan', 'Barang Masuk berhasil ditambahkan');
     }
 
     /**

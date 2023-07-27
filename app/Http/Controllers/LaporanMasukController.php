@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangMasuk;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class LaporanMasukController extends Controller
 {
@@ -13,7 +16,7 @@ class LaporanMasukController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.laporanMasuk');
     }
 
     /**
@@ -21,9 +24,11 @@ class LaporanMasukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getPdfMasuk()
     {
-        //
+        $data = BarangMasuk::latest()->get();
+        $pdf = Pdf::loadView('admin.reportBarangMasuk', compact('data'))->setPaper('A4', 'landscape');
+        return $pdf->stream('Barang Masuk.pdf');
     }
 
     /**

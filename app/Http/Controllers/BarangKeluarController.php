@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BarangKeluar;
 use App\Models\History;
+use App\Models\Stok;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,16 @@ class BarangKeluarController extends Controller
         return view('admin.barangKeluar', compact('allRecords'));
     }
 
+    public function indexUser()
+    {
+        $allRecords = DB::table('barang_keluar')
+        ->select('id', 'uuid', 'kode_barang', 'nama_barang', 'jumlah_keluar', 'satuan', 'waktu_keluar', 'created_at')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('user.barangKeluar', compact('allRecords'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -33,11 +44,20 @@ class BarangKeluarController extends Controller
      */
     public function create()
     {
-        $barang = DB::table('barang_keluar')
-        ->select('id_barang', 'nama_barang', 'created_at')
+        $barang = DB::table('barang')
+        ->select('id', 'nama_barang', 'created_at')
         ->orderBy('created_at', 'desc')
         ->get();
         return view('admin.createBarangKeluar', compact('barang'));
+    }
+
+    public function userCreate()
+    {
+        $barang = DB::table('barang')
+        ->select('id', 'nama_barang', 'created_at')
+        ->orderBy('created_at', 'desc')
+        ->get();
+        return view('user.createBarangKeluar', compact('barang'));
     }
 
     /**
@@ -49,16 +69,19 @@ class BarangKeluarController extends Controller
     public function store(Request $request)
     {
         $barangKeluar = new BarangKeluar();
-
-        $namaBarang = DB::table('barang_keluar')->select('nama_barang')->where('id_barang', '=', $request->namaBarang)->first();
-
-        $barangKeluar->id = Str::uuid();
+        
+        $namaBarang = DB::table('barang')->select('nama_barang')->where('id', '=', $request->namaBarang)->first();
+        $stok = DB::table('stock')->select('stok_akhir')->where('id_barang', '=', $request->namaBarang)->first();
+        $barangKeluar->uuid = Str::uuid();
         $barangKeluar->id_barang = $request->namaBarang;
         $barangKeluar->nama_barang = $namaBarang->nama_barang;
         $barangKeluar->kode_barang = $request->kodeBarang;
         $barangKeluar->satuan = $request->satuan;
         $barangKeluar->waktu_keluar = $request->waktu;
         $barangKeluar->jumlah_keluar = $request->jumlah;
+
+        $stok_akhir_baru = $stok->stok_akhir - $request->jumlah;
+        DB::table('stock')->where('id_barang', '=', $request->namaBarang)->update(['stok_akhir' => $stok_akhir_baru]);
 
         $history = new History();
         $userInfo = Auth::user();
@@ -69,6 +92,34 @@ class BarangKeluarController extends Controller
         $barangKeluar->save();
 
         return redirect()->route('admin.barang-keluar')->with('tertambah', 'Barang Masuk berhasil ditambahkan');
+    }
+
+    public function userStore(Request $request)
+    {
+        $barangKeluar = new BarangKeluar();
+        
+        $namaBarang = DB::table('barang')->select('nama_barang')->where('id', '=', $request->namaBarang)->first();
+        $stok = DB::table('stock')->select('stok_akhir')->where('id_barang', '=', $request->namaBarang)->first();
+        $barangKeluar->uuid = Str::uuid();
+        $barangKeluar->id_barang = $request->namaBarang;
+        $barangKeluar->nama_barang = $namaBarang->nama_barang;
+        $barangKeluar->kode_barang = $request->kodeBarang;
+        $barangKeluar->satuan = $request->satuan;
+        $barangKeluar->waktu_keluar = $request->waktu;
+        $barangKeluar->jumlah_keluar = $request->jumlah;
+
+        $stok_akhir_baru = $stok->stok_akhir - $request->jumlah;
+        DB::table('stock')->where('id_barang', '=', $request->namaBarang)->update(['stok_akhir' => $stok_akhir_baru]);
+
+        $history = new History();
+        $userInfo = Auth::user();
+        $history->id_user = $userInfo->id;
+        $history->detail_history = 'Menambahkan data "' . $barangKeluar->nama_barang . '" pada barang keluar';
+        $history->save();
+
+        $barangKeluar->save();
+
+        return redirect()->route('user.barang-keluar')->with('tertambah', 'Barang Masuk berhasil ditambahkan');
     }
 
     /**

@@ -4,27 +4,14 @@
     <div id="sidebar" class="active">
         <div class="sidebar-wrapper active">
             <div class="sidebar-header position-relative">
-                <div
-                    class="d-flex justify-content-between align-items-center"
-                >
+                <div class="d-flex justify-content-between align-items-center">
                     <div class="logo">
-                        <a href="admin/dashboard"
-                            ><img
-                                src="{{ url('/images/logo.png') }}"
-                                style="height: 30px"
-                                alt="Logo"
-                                width="150"
-                                height="150"
-                                srcset=""
-                            />
+                        <a href="admin/dashboard"><img src="{{ url('/images/logo.png') }}" style="height: 30px"
+                                alt="Logo" width="150" height="150" srcset="" />
                         </a>
                     </div>
                     <div class="sidebar-toggler x">
-                        <a
-                            href="#"
-                            class="sidebar-hide d-xl-none d-block"
-                            ><i class="bi bi-x bi-middle"></i
-                        ></a>
+                        <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                     </div>
                 </div>
             </div>
@@ -38,22 +25,25 @@
                     </li>
 
                     <li class="sidebar-title">Data Barang</li>
-                    
-                    <li class="{{ (request()->is('admin/daftar-barang')) ? 'sidebar-item active' : ((request()->is('admin/daftar-barang/create')) ? 'sidebar-item active' : 'sidebar-item') }}">
+
+                    <li
+                        class="{{ (request()->is('admin/daftar-barang*')) ? 'sidebar-item active' : ((request()->is('admin/daftar-barang/create')) ? 'sidebar-item active' : 'sidebar-item') }}">
                         <a href="{{ url('admin/daftar-barang') }}" class="sidebar-link">
                             <i class="bi bi-box-fill"></i>
                             <span>Daftar Barang</span>
                         </a>
                     </li>
 
-                    <li class="{{ (request()->is('admin/barang-masuk')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                    <li
+                        class="{{ (request()->is('admin/barang-masuk', 'admin/barang-masuk/create')) ? 'sidebar-item active' : 'sidebar-item' }}">
                         <a href="{{ url('admin/barang-masuk') }}" class="sidebar-link">
                             <i class="bi bi-bag-fill"></i>
                             <span>Barang Masuk</span>
                         </a>
                     </li>
 
-                    <li class="{{ (request()->is('admin/barang-keluar')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                    <li
+                        class="{{ (request()->is('admin/barang-keluar', 'admin/barang-keluar/create')) ? 'sidebar-item active' : 'sidebar-item' }}">
                         <a href="{{ url('admin/barang-keluar') }}" class="sidebar-link">
                             <i class="bi bi-diagram-3-fill"></i>
                             <span>Barang Keluar</span>
@@ -66,10 +56,11 @@
                             <span>History</span>
                         </a>
                     </li>
-    
+
                     <li class="sidebar-title">Akun</li>
 
-                    <li class="{{ (request()->is('admin/akun')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                    <li
+                        class="{{ (request()->is('admin/daftar-pengguna*')) ? 'sidebar-item active' : 'sidebar-item' }}">
                         <a href="{{ url('admin/daftar-pengguna') }}" class="sidebar-link">
                             <i class="bi bi-people-fill"></i>
                             <span>Daftar Pengguna</span>
@@ -78,8 +69,8 @@
 
                     <li class="sidebar-title">Laporan</li>
 
-                    <li class="{{ (request()->is('admin/akun')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/akun') }}" class="sidebar-link">
+                    <li class="{{ (request()->is('admin/laporan-masuk')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('admin/laporan-masuk') }}" class="sidebar-link">
                             <i class="bi bi-patch-plus-fill"></i>
                             <span>Laporan Barang Masuk</span>
                         </a>
@@ -99,12 +90,7 @@
 
                     <li class="sidebar-title">Session</li>
                     <li class="sidebar-item">
-                        <a
-                            type="button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop"
-                            class="sidebar-link"
-                        >
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="sidebar-link">
                             <i class="bi bi-door-open-fill"></i>
                             <span>Keluar</span>
                         </a>
@@ -120,25 +106,27 @@
                 <i class="bi bi-justify fs-3"></i>
             </a>
         </header>
-        
+
         <div class="page-heading">
             <h3>@yield('title')</h3>
         </div>
         <div class="page-content">
             <section class="row">
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-body text-center fs-3">
-                          Yakin ingin Log Out?
+                        <div class="modal-content">
+                            <div class="modal-body text-center fs-3">
+                                Yakin ingin Log Out?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-success"
+                                    data-bs-dismiss="modal">Batal</button>
+                                <a href="/admin/logout" class="btn btn-danger">Log Out</a>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Batal</button>
-                          <a href="/admin/logout" class="btn btn-danger">Log Out</a>
-                        </div>
-                      </div>
                     </div>
-                  </div>
+                </div>
                 @yield('content')
             </section>
         </div>
@@ -151,9 +139,7 @@
                 <div class="float-end">
                     <p>
                         Developed with
-                        <span class="text-danger"
-                            ><i class="bi bi-heart"></i
-                        ></span>
+                        <span class="text-danger"><i class="bi bi-heart"></i></span>
                         by <a href="https://qory.dev" target="blank">Qory</a>
                     </p>
                 </div>

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class BarangMasuk extends Model
 {
@@ -21,4 +20,9 @@ class BarangMasuk extends Model
         'jumlah_masuk',
         'waktu_masuk'
     ];
+
+    public function stok ()
+    {
+        return $this->hasOne(Stok::class,'id_barang');
+    }
 }

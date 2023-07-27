@@ -6,7 +6,7 @@
     <div class="col-8">
         <div class="card">
             <div class="card-header">
-                <a href="{{ url('/admin/barang-masuk') }}" class="d-flex gap-2 mb-3">
+                <a href="{{ url('/admin/barang-keluar') }}" class="d-flex gap-2 mb-3">
                     <i class="bi bi-arrow-left-short"></i>Kembali
                 </a>
                 <h3 class="card-title">Input Barang Keluar</h3>
@@ -24,10 +24,13 @@
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <select name="namaBarang" class="form-select" aria-label="Default select example" onchange="autoFill()" id="selectProduct">
+                                            <select name="namaBarang" class="form-select"
+                                                aria-label="Default select example" onchange="autoFill()"
+                                                id="selectProduct">
                                                 <option selected value="">Pilih Barang</option>
                                                 @foreach($barang as $barang)
-                                                    <option value="{{ $barang->id_barang }}">{{ $barang->nama_barang }}</option>
+                                                <option value="{{ $barang->id }}">{{ $barang->nama_barang }}
+                                                </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -40,22 +43,23 @@
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="kodeBarang" class="form-control" placeholder="Kode Barang"
-                                                id="kodeBarang" readonly>
+                                            <input type="text" name="kodeBarang" class="form-control"
+                                                placeholder="Kode Barang" id="kodeBarang" readonly>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-unity"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-4 mb-2">
                                     <label>Satuan</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="satuan" class="form-control" placeholder="Satuan" id="satuan" readonly>
+                                            <input type="text" name="satuan" class="form-control" placeholder="Satuan"
+                                                id="satuan" readonly>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-box"></i>
                                             </div>
@@ -68,7 +72,8 @@
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="number" name="jumlah" class="form-control" placeholder="Jumlah Masuk" id="jumlah" required>
+                                            <input type="number" name="jumlah" class="form-control"
+                                                placeholder="Jumlah Keluar" id="jumlah" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-123"></i>
                                             </div>
@@ -81,7 +86,8 @@
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="date" name="waktu" class="form-control" placeholder="Waktu Masuk" id="waktu" required>
+                                            <input type="date" name="waktu" class="form-control"
+                                                placeholder="Waktu Masuk" id="waktu" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-layers"></i>
                                             </div>
@@ -89,9 +95,9 @@
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-end mt-4">
-                                    <button type="submit" id="btnSubmit" class="btn btn-primary me-3 mb-1">Submit</button>
-                                    <button type="reset"
-                                        class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                    <button type="submit" id="btnSubmit"
+                                        class="btn btn-primary me-3 mb-1">Submit</button>
+                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                 </div>
                             </div>
                         </div>
