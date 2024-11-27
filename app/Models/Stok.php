@@ -12,13 +12,13 @@ class Stok extends Model
     protected $table = 'stock';
 
     protected $fillable = [
-        'id_barang',
+        'id_produk',
         'stok_awal',
         'stok_akhir'
     ];
 
     public function barangMasuk()
     {
-        return $this->belongsTo(BarangMasuk::class,'id_barang');
+        return $this->belongsTo(ProdukMasuk::class,'id_produk');
     }
 }

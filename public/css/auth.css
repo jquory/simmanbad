@@ -9,12 +9,22 @@ body {
     background: url(/images/4853433.png?45649b87e0b3f50bfa1372c6cdb4595f),
         linear-gradient(90deg, #2d499d, #3f5491);
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+#auth #auth-right img {
+    width: 80%;
+    height: 80%;
+}
+
 #auth #auth-left {
     padding: 2rem 3rem;
 }
 #auth #auth-left .auth-title {
-    font-size: 4rem;
+    font-size: 3rem;
+    margin-top: 2rem;
     margin-bottom: 1rem;
 }
 #auth #auth-left .auth-subtitle {
@@ -23,7 +33,8 @@ body {
     line-height: 2.5rem;
 }
 #auth #auth-left .auth-logo {
-    margin-bottom: 3rem;
+    margin-bottom: 6rem;
+    margin-top: 2rem;
 }
 #auth #auth-left .auth-logo img {
     height: 2rem;

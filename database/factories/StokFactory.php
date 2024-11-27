@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\IndexBarang;
+use App\Models\IndexProduk;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -21,8 +21,8 @@ class StokFactory extends Factory
     {
         return [
             'id' => Str::uuid(),
-            'id_barang' => function () {
-                return IndexBarang::factory()->create()->id;
+            'id_produk' => function () {
+                return IndexProduk::factory()->create()->id;
             },
             'stok_awal' => $this->faker->numberBetween(1, 100),
             'stok_akhir' => $this->faker->numberBetween(1, 100)

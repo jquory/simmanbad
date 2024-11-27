@@ -17,35 +17,28 @@
         <thead class="text-center">
             <tr>
                 <th>No.</th>
-                <th>Nama</th>
-                <th>NIP</th>
-                <th>Jenis Kelamin</th>
-                <th>Jabatan</th>
-                <th>Unit Kerja</th>
-                <th>Alamat</th>
-                <th>Email</th>
-                <th>No. Telepon</th>
+                <th>Kode Barang</th>
+                <th>Nama Barang</th>
+                <th>Satuan</th>
+                <th>Waktu Masuk</th>
+                <th>Jumlah Masuk</th>
             </tr>
         </thead>
         <tbody class="text-center">
-            {{-- @forelse ($data as $item)
+            @forelse ($data as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->nip }}</td>
-                <td>{{ $item->gender }}</td>
-                <td>{{ $item->position }}</td>
-                <td>{{ $item->unit }}</td>
-                <td>{{ $item->address }}</td>
-                <td>{{ $item->email }}</td>
-                <td>{{ $item->phone_number }}</td>
-
+                <td>{{ $item->kode_barang }}</td>
+                <td>{{ $item->nama_barang }}</td>
+                <td>{{ $item->satuan }}</td>
+                <td>{{ $item->waktu_masuk }}</td>
+                <td>{{ $item->total_jumlah_masuk }}</td>
             </tr>
             @empty
             <tr>
                 <td colspan="9" class="text-center">Data Tidak Ada</td>
             </tr>
-            @endforelse --}}
+            @endforelse
         </tbody>
     </table>
 </body>

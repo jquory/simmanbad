@@ -6,8 +6,7 @@
             <div class="sidebar-header position-relative">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="logo">
-                        <a href="admin/dashboard"><img src="{{ url('/images/logo.png') }}" style="height: 30px"
-                                alt="Logo" width="150" height="150" srcset="" />
+                        <a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><img src="{{ url('/images/logo/logo-simmanbad.png') }}" class="h-25" alt="Logo" width="60" srcset="" /> Simmanbad
                         </a>
                     </div>
                     <div class="sidebar-toggler x">
@@ -24,67 +23,36 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-title">Data Barang</li>
+                    <li class="sidebar-title">Atlet</li>
 
                     <li
-                        class="{{ (request()->is('admin/daftar-barang*')) ? 'sidebar-item active' : ((request()->is('admin/daftar-barang/create')) ? 'sidebar-item active' : 'sidebar-item') }}">
-                        <a href="{{ url('admin/daftar-barang') }}" class="sidebar-link">
+                        class="{{ (request()->is('admin/daftar-atlet*')) ? 'sidebar-item active' : ((request()->is('admin/daftar-atlet/create')) ? 'sidebar-item active' : 'sidebar-item') }}">
+                        <a href="{{ url('admin/daftar-atlet') }}" class="sidebar-link">
                             <i class="bi bi-box-fill"></i>
-                            <span>Daftar Barang</span>
+                            <span>Daftar Atlet</span>
                         </a>
                     </li>
 
-                    <li
-                        class="{{ (request()->is('admin/barang-masuk', 'admin/barang-masuk/create')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/barang-masuk') }}" class="sidebar-link">
-                            <i class="bi bi-bag-fill"></i>
-                            <span>Barang Masuk</span>
+                    <li class="{{ (request()->is('admin/prestasi*')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('admin/prestasi') }}" class="sidebar-link">
+                            <i class="bi bi-trophy-fill"></i>
+                            <span>Prestasi</span>
                         </a>
                     </li>
 
-                    <li
-                        class="{{ (request()->is('admin/barang-keluar', 'admin/barang-keluar/create')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/barang-keluar') }}" class="sidebar-link">
-                            <i class="bi bi-diagram-3-fill"></i>
-                            <span>Barang Keluar</span>
+                    <li class="sidebar-title">Event</li>
+
+                    <li class="{{ (request()->is('admin/event*')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('admin/event') }}" class="sidebar-link">
+                            <i class="bi bi-calendar-event-fill"></i>
+                            <span>List Event</span>
                         </a>
                     </li>
 
-                    <li class="{{ (request()->is('admin/history')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/history') }}" class="sidebar-link">
-                            <i class="bi bi-calendar2-date-fill"></i>
-                            <span>History</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-title">Akun</li>
-
-                    <li
-                        class="{{ (request()->is('admin/daftar-pengguna*')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/daftar-pengguna') }}" class="sidebar-link">
-                            <i class="bi bi-people-fill"></i>
-                            <span>Daftar Pengguna</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-title">Laporan</li>
-
-                    <li class="{{ (request()->is('admin/laporan-masuk')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/laporan-masuk') }}" class="sidebar-link">
-                            <i class="bi bi-patch-plus-fill"></i>
-                            <span>Laporan Barang Masuk</span>
-                        </a>
-                    </li>
-                    <li class="{{ (request()->is('admin/akun')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/akun') }}" class="sidebar-link">
-                            <i class="bi bi-patch-minus-fill"></i>
-                            <span>Laporan Barang Keluar</span>
-                        </a>
-                    </li>
-                    <li class="{{ (request()->is('admin/akun')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('admin/akun') }}" class="sidebar-link">
-                            <i class="bi bi-calendar2-range-fill"></i>
-                            <span>Laporan Akhir</span>
+                    <li class="{{ (request()->is('admin/jadwal*')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('admin/jadwal') }}" class="sidebar-link">
+                            <i class="bi bi-easel-fill"></i>
+                            <span>Jadwal</span>
                         </a>
                     </li>
 
@@ -134,15 +102,15 @@
         <footer>
             <div class="footer clearfix mb-0 text-muted">
                 <div class="float-start">
-                    <a href="https://linkedin.com/in/qori" target="blank">2023 &copy; Kemas Muhammad Qori Ichsan</a>
+                    <a href="https://instagram.com" target="blank">2024 &copy; Kharisma budiwati</a>
                 </div>
-                <div class="float-end">
+                {{-- <div class="float-end">
                     <p>
                         Developed with
                         <span class="text-danger"><i class="bi bi-heart"></i></span>
                         by <a href="https://qory.dev" target="blank">Qory</a>
                     </p>
-                </div>
+                </div> --}}
             </div>
         </footer>
     </div>

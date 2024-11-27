@@ -17,7 +17,7 @@
                                 Transaksi
                             </h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ $totalbarangkeluar + $totalbarangmasuk }}
+                                {{-- {{ $totalprodukkeluar + $totalprodukmasuk }} --}}
                             </h6>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                                 User
                             </h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ $totaladmin + $totaluser }}
+                                {{-- {{ $totaladmin + $totaluser }} --}}
                             </h6>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                                 Aktivitas
                             </h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ $totalhistory }}
+                                {{-- {{ $totallogaktivitas }} --}}
                             </h6>
                         </div>
                     </div>
@@ -77,10 +77,10 @@
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                             <h6 class="text-muted font-semibold">
-                                Barang
+                                Produk
                             </h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ $totalbarang }}
+                                {{-- {{ $totalproduk }} --}}
                             </h6>
                         </div>
                     </div>
@@ -92,10 +92,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Transaksi Barang Masuk Tahun Ini</h4>
+                    <h4>Transaksi Produk Masuk Tahun Ini</h4>
                 </div>
                 <div class="card-body">
-                    <div id="chart-barang-masuk"></div>
+                    <div id="chart-produk-masuk"></div>
                 </div>
             </div>
         </div>
@@ -104,10 +104,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Transaksi Barang Keluar Tahun Ini</h4>
+                    <h4>Transaksi Produk Keluar Tahun Ini</h4>
                 </div>
                 <div class="card-body">
-                    <div id="chart-barang-keluar"></div>
+                    <div id="chart-produk-keluar"></div>
                 </div>
             </div>
         </div>
@@ -129,31 +129,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($historyterakhir as $history)
+                                {{-- @foreach($logaktivitasterakhir as $logaktivitas)
                                 <tr>
                                     <td class="col-3">
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-md">
-                                                <img src="{{ $history->image_url }}" />
+                                                <img src="{{ $logaktivitas->image_url }}" />
                                             </div>
                                             <p class="font-bold ms-3 mb-0">
-                                                {{ $history->name }}
+                                                {{ $logaktivitas->name }}
                                             </p>
                                         </div>
                                     </td>
                                     <td class="col-auto">
                                         <p class="waktu-history">
-                                            {{ \Carbon\Carbon::parse($history->created_at)->isoFormat('dddd, D MMMM Y
+                                            {{ \Carbon\Carbon::parse($logaktivitas->created_at)->isoFormat('dddd, D MMMM
+                                            Y
                                             hh:mm') }}
                                         </p>
                                     </td>
                                     <td class="col-auto">
                                         <p class="mb-0">
-                                            {{ $history->detail_history }}
+                                            {{ $logaktivitas->detail_aktivitas }}
                                         </p>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -184,7 +185,7 @@
             <h4>Pengguna Terbaru</h4>
         </div>
         <div class="card-content pb-4">
-            @foreach($akunterakhir as $akun)
+            {{-- @foreach($akunterakhir as $akun)
             <div class="recent-message d-flex px-4 py-3">
                 <div class="avatar avatar-lg">
                     <img src="{{ $akun->image_url }}" />
@@ -196,7 +197,7 @@
                     </h6>
                 </div>
             </div>
-            @endforeach
+            @endforeach --}}
         </div>
     </div>
     <div class="card">
@@ -214,12 +215,9 @@
 
 <script src="{{ url('/extensions/apexcharts/apexcharts.min.js') }}"></script>
 <script type="text/javascript">
-    let recordKeluar = JSON.parse('{!! $recordsKeluar !!}');
-let recordMasuk = JSON.parse('{!! $recordsMasuk !!}');
-let jsonUser = JSON.parse('{!! $totaluser !!}');
-let jsonAdmin = JSON.parse('{!! $totaladmin !!}');
+    
 
-let optionBarangMasuk = {
+let optionProdukMasuk = {
     annotations: {
         position: "back",
     },
@@ -256,7 +254,7 @@ let optionBarangMasuk = {
     },
 };
 
-let optionBarangKeluar = {
+let optionProdukKeluar = {
     annotations: {
         position: "back",
     },
@@ -379,13 +377,13 @@ let optionsEurope = {
 };
 
 
-let chartBarangMasuk = new ApexCharts(
-    document.querySelector("#chart-barang-masuk"),
-    optionBarangMasuk
+let chartProdukMasuk = new ApexCharts(
+    document.querySelector("#chart-produk-masuk"),
+    optionProdukMasuk
 );
-let chartBarangKeluar = new ApexCharts(
-    document.querySelector("#chart-barang-keluar"),
-    optionBarangKeluar
+let chartProdukKeluar = new ApexCharts(
+    document.querySelector("#chart-produk-keluar"),
+    optionProdukKeluar
 );
 
 let chartVisitorsProfile = new ApexCharts(
@@ -393,8 +391,8 @@ let chartVisitorsProfile = new ApexCharts(
     optionsVisitorsProfile
 );
 
-chartBarangMasuk.render();
-chartBarangKeluar.render();
+chartProdukMasuk.render();
+chartProdukKeluar.render();
 chartVisitorsProfile.render();
 
 </script>

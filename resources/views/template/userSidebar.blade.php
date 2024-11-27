@@ -6,8 +6,7 @@
             <div class="sidebar-header position-relative">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="logo">
-                        <a href="{{ url('user/dashboard') }}"><img src="{{ url('/images/logo.png') }}"
-                                style="height: 30px" alt="Logo" width="150" height="150" srcset="" />
+                        <a class="d-flex align-items-center" href="{{ url('/user/dashboard') }}"><img src="{{ url('/images/logo/logo-simmanbad.png') }}" class="h-25" alt="Logo" width="60" srcset="" /> Simmanbad
                         </a>
                     </div>
                     <div class="sidebar-toggler x">
@@ -24,21 +23,18 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-title">Transaksi Barang</li>
+                    <li class="sidebar-title">Lainnya</li>
 
-                    <li
-                        class="{{ (request()->is('user/barang-masuk', 'user/barang-masuk/create')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('user/barang-masuk') }}" class="sidebar-link">
+                    <li class="{{ (request()->is('user/jadwal*')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('user/jadwal') }}" class="sidebar-link">
                             <i class="bi bi-bag-fill"></i>
-                            <span>Barang Masuk</span>
+                            <span>Jadwal Saya</span>
                         </a>
                     </li>
-
-                    <li
-                        class="{{ (request()->is('user/barang-keluar', 'user/barang-keluar/create')) ? 'sidebar-item active' : 'sidebar-item' }}">
-                        <a href="{{ url('user/barang-keluar') }}" class="sidebar-link">
-                            <i class="bi bi-diagram-3-fill"></i>
-                            <span>Barang Keluar</span>
+                    <li class="{{ (request()->is('user/prestasi*')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('user/prestasi') }}" class="sidebar-link">
+                            <i class="bi bi-bag-fill"></i>
+                            <span>Prestasi Saya</span>
                         </a>
                     </li>
 

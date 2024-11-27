@@ -21,9 +21,15 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('no_telp');
-            $table->string('image_url');
+            $table->string('image_url')->nullable();
+            $table->string('ttl')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('unit')->nullable();
+            $table->string('tmt')->nullable();
+            $table->string('penempatan')->nullable();
             $table->string('role');
-            $table->rememberToken();
+            $table->bigInteger('event_id');
+            $table->rememberToken()->nullable();
             $table->timestamps();
         });
     }

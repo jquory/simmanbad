@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\History;
+
+use App\Models\LogAktivitas;
 use App\Models\User;
 use Faker\Factory as Faker;
 use Illuminate\Http\Request;
@@ -65,12 +66,12 @@ class PenggunaController extends Controller
         $user->role = 'user';
         $user->remember_token = Str::random(10);
         
-        $history = new History();
+        $log = new LogAktivitas();
         $userInfo = Auth::user();
-        $history->id_user = $userInfo->id;
-        $history->detail_history = 'Menambahkan ' . $request->nama . ' sebagai pengguna baru';
+        $log->id_user = $userInfo->id;
+        $log->detail_aktivitas = 'Menambahkan ' . $request->nama . ' sebagai pengguna baru';
         $user->save();
-        $history->save();
+        $log->save();
 
         return redirect()->route('admin.pengguna')->with('ditambahkan', 'Data berhasil ditambahkan');
     }
@@ -113,12 +114,12 @@ class PenggunaController extends Controller
         $user->password = Hash::make($request->password);
         $user->no_telp = $request->no_telp;
 
-        $history = new History();
+        $log = new LogAktivitas();
         $userInfo = Auth::user();
-        $history->id_user = $userInfo->id;
-        $history->detail_history = 'Memperbarui ' . $request->nama . ' pada data pengguna';
+        $log->id_user = $userInfo->id;
+        $log->detail_aktivitas = 'Memperbarui ' . $request->nama . ' pada data pengguna';
         $user->update();
-        $history->save();
+        $log->save();
 
         return redirect()->route('admin.pengguna')->with('masukUpdated', 'Data Berhasil di perbarui');
     }
@@ -132,11 +133,11 @@ class PenggunaController extends Controller
     public function destroy($id)
     {
         $data = User::find($id);
-        $history = new History();
+        $log = new LogAktivitas();
         $userInfo = Auth::user();
-        $history->id_user = $userInfo->id;
-        $history->detail_history = 'Menghapus akun ' . $data->name . ' dari daftar pengguna';
-        $history->save();
+        $log->id_user = $userInfo->id;
+        $log->detail_aktivitas = 'Menghapus akun ' . $data->name . ' dari daftar pengguna';
+        $log->save();
         $data->delete();
         return redirect()->route('admin.pengguna')->with('masukDeleted', 'Data Berhasil dihapus');
     }

@@ -35,6 +35,11 @@ class UserFactory extends Factory
                 'https://img.freepik.com/free-psd/3d-illustration-person-with-long-hair_23-2149436197.jpg?w=740&t=st=1684175664~exp=1684176264~hmac=ac06b3d21357dbea80c166694688fb52f11e5ec5d4ab729787b9a8d331f3d842'
 
             ]),
+            'ttl' => $this->faker->dateTime(),
+            'gender' => $this->faker->randomElement(['perempuan', 'laki-laki']),
+            'unit' => $this->faker->randomElement(['palembang', 'jakarta']),
+            'tmt' => $this->faker->dateTime(),
+            'penempatan' => $this->faker->randomElement(['palembang', 'jakarta']),
             'role' => $this->faker->randomElement(['admin', 'user']),
             'remember_token' => Str::random(10),
         ];

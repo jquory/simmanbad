@@ -23,7 +23,13 @@ class User extends Authenticatable
         'password',
         'no_telp',
         'image_url',
+        'ttl',
+        'gender',
+        'unit',
+        'tmt',
+        'penempatan',
         'role',
+        'event_id',
         'remember_token'
     ];
 
