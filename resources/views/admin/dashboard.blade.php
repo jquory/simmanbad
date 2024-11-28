@@ -14,10 +14,10 @@
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                             <h6 class="text-muted font-semibold">
-                                Transaksi
+                                Jadwal
                             </h6>
                             <h6 class="font-extrabold mb-0">
-                                {{-- {{ $totalprodukkeluar + $totalprodukmasuk }} --}}
+                                {{ $jadwal }}
                             </h6>
                         </div>
                     </div>
@@ -35,10 +35,10 @@
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                             <h6 class="text-muted font-semibold">
-                                User
+                                Atlet
                             </h6>
                             <h6 class="font-extrabold mb-0">
-                                {{-- {{ $totaladmin + $totaluser }} --}}
+                                {{ $totalAtlet }}
                             </h6>
                         </div>
                     </div>
@@ -56,10 +56,10 @@
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                             <h6 class="text-muted font-semibold">
-                                Aktivitas
+                                Pelatih
                             </h6>
                             <h6 class="font-extrabold mb-0">
-                                {{-- {{ $totallogaktivitas }} --}}
+                                {{ $totalPelatih }}
                             </h6>
                         </div>
                     </div>
@@ -77,10 +77,10 @@
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                             <h6 class="text-muted font-semibold">
-                                Produk
+                                Prestasi
                             </h6>
                             <h6 class="font-extrabold mb-0">
-                                {{-- {{ $totalproduk }} --}}
+                                {{ $prestasi }}
                             </h6>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Transaksi Produk Masuk Tahun Ini</h4>
+                    <h4>Atlet hadir</h4>
                 </div>
                 <div class="card-body">
                     <div id="chart-produk-masuk"></div>
@@ -104,60 +104,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Transaksi Produk Keluar Tahun Ini</h4>
+                    <h4>Atlet tidak hadir</h4>
                 </div>
                 <div class="card-body">
                     <div id="chart-produk-keluar"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Log Aktivitas</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-lg">
-                            <thead>
-                                <tr align="center">
-                                    <th>Nama</th>
-                                    <th>Waktu</th>
-                                    <th>Aktivitas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @foreach($logaktivitasterakhir as $logaktivitas)
-                                <tr>
-                                    <td class="col-3">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="{{ $logaktivitas->image_url }}" />
-                                            </div>
-                                            <p class="font-bold ms-3 mb-0">
-                                                {{ $logaktivitas->name }}
-                                            </p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class="waktu-history">
-                                            {{ \Carbon\Carbon::parse($logaktivitas->created_at)->isoFormat('dddd, D MMMM
-                                            Y
-                                            hh:mm') }}
-                                        </p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class="mb-0">
-                                            {{ $logaktivitas->detail_aktivitas }}
-                                        </p>
-                                    </td>
-                                </tr>
-                                @endforeach --}}
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
         </div>
@@ -174,30 +124,10 @@
                 <div class="ms-3 name">
                     <h5 class="font-bold">{{ auth()->user()->name }}</h5>
                     <h6 class="text-muted mb-0">
-                        Administrator
+                        Pelatih
                     </h6>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <h4>Pengguna Terbaru</h4>
-        </div>
-        <div class="card-content pb-4">
-            {{-- @foreach($akunterakhir as $akun)
-            <div class="recent-message d-flex px-4 py-3">
-                <div class="avatar avatar-lg">
-                    <img src="{{ $akun->image_url }}" />
-                </div>
-                <div class="name ms-4">
-                    <h5 class="mb-1">{{ $akun->name }}</h5>
-                    <h6 class="text-muted mb-0">
-                        <i>{{ $akun->username }}</i>
-                    </h6>
-                </div>
-            </div>
-            @endforeach --}}
         </div>
     </div>
     <div class="card">
@@ -208,8 +138,6 @@
             <div id="chart-visitors-profile"></div>
         </div>
     </div>
-
-
 </div>
 
 
@@ -275,7 +203,7 @@ let optionProdukKeluar = {
             data: [12, 23, 34, 45, 21, 23, 12, 45, 5]
         }
     ],
-    colors: "#57CAEB",
+    colors: "#F4BB1B",
     xaxis: {
         categories: [
             'April',
@@ -293,8 +221,8 @@ let optionProdukKeluar = {
 
 
 let optionsVisitorsProfile = {
-    series: [jsonUser, jsonAdmin],
-    labels: ["User", "Admin"],
+    series: [40, 10],
+    labels: ["Atlet", "Pelatih"],
     colors: ["#435ebe", "#55c6e8"],
     chart: {
         type: "donut",

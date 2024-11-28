@@ -139,35 +139,11 @@ class HomeController extends Controller
     }
 
     public function dashboardAdmin() {
-        // $currentYear = date('Y');
-        // $recordsKeluar = DB::table('produk_keluar')
-        //     ->selectRaw("DATE_FORMAT(created_at, '%M') AS month_name, COUNT(*) AS count")
-        //     ->whereYear('created_at', $currentYear)
-        //     ->groupByRaw("DATE_FORMAT(created_at, '%M')")
-        //     ->get();
+        $jadwal = DB::table('jadwal')->count();
+        $totalPelatih = DB::table('users')->whereIn('role', ['admin'])->count();
+        $totalAtlet = DB::table('users')->whereIn('role', ['user'])->count();
+        $prestasi = DB::table('prestasi')->count();
 
-        // $recordsMasuk = DB::table('produk_masuk')
-        //     ->selectRaw("DATE_FORMAT(created_at, '%M') AS month_name, COUNT(*) AS count")
-        //     ->whereYear('created_at', $currentYear)
-        //     ->groupByRaw("DATE_FORMAT(created_at, '%M')")
-        //     ->get();
-
-        // $akunterakhir = DB::table('users')->latest()->take(5)->get();
-        // $totaladmin = DB::table('users')->whereIn('role', ['admin'])->count();
-        // $totaluser = DB::table('users')->whereIn('role', ['user'])->count();
-        // $totallogaktivitas = DB::table('log_aktivitas')->count();
-        // $totalproduk = DB::table('produk')->count();
-        // $totalprodukkeluar = DB::table('produk_keluar')->count();
-        // $totalprodukmasuk = DB::table('produk_masuk')->count();
-
-        // $logaktivitasterakhir = DB::table('log_aktivitas')
-        // ->join('users', 'log_aktivitas.id_user', '=', 'users.id')
-        // ->select('log_aktivitas.*', 'users.name', 'users.image_url')
-        // ->orderBy('log_aktivitas.created_at', 'desc')
-        // ->latest()
-        // ->take(4)
-        // ->get();
-
-        return view('admin.dashboard');
+        return view('admin.dashboard', compact(['jadwal', 'totalPelatih', 'totalAtlet', 'prestasi']));
     }
 }

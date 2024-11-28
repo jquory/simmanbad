@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -45,39 +46,29 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'gambar' => 'required|image|mimes:jpeg,png,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,gif|max:2048',
         ]);
 
-        $imageName = time().'.'.$request->gambar->extension();
-        $request->gambar->move(public_path('uploads/images'), $imageName);
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('uploads/images'), $imageName);
 
-        $produk = new IndexProduk();
+        $user = new User();
 
-        $produk->uuid = Str::uuid();
-        $produk->nama_produk = $request->nama_produk;
-        $produk->merk = $request->merk;
-        $produk->model = $request->model;
-        $produk->kapasitas = $request->kapasitas;
-        $produk->tahun = $request->tahun;
-        $produk->negara = $request->negara;
-        $produk->gambar = 'uploads/images/' . $imageName;
-        $produk->harga = $request->harga;
-        $produk->save();
+        $user->uuid = Str::uuid();
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->password = Hash::make($request->password);
+        $user->no_telp = $request->no_telp;
+        $user->image_url = 'uploads/images/' . $imageName;
+        $user->ttl = $request->ttl;
+        $user->gender = $request->gender;
+        $user->unit = $request->unit;
+        $user->tmt = $request->tmt;
+        $user->penempatan = $request->penempatan;
+        $user->role = $request->role;
+        $user->save();
 
-        $stok = new Stok();
-        $stok->id = Str::uuid();
-        $stok->id_produk = $produk->id;
-        $stok->stok_awal = $request->stok_awal;
-        $stok->stok_akhir = $request->stok_awal;
-        $stok->save();
-
-        $log = new LogAktivitas();
-        $userInfo = Auth::user();
-        $log->id_user = $userInfo->id;
-        $log->detail_aktivitas = 'Menambahkan ' . $request->nama_produk . ' pada data produk';
-        $log->save();
-
-        return redirect()->route('admin.daftar-produk')->with('added', 'Data berhasil ditambahkan');
+        return redirect()->route('admin.daftar-atlet')->with('added', 'Data berhasil ditambahkan');
     }
 
     /**

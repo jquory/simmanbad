@@ -14,19 +14,19 @@
             <div class="card-content">
                 <div class="card-body">
                     <form class="form form-horizontal" enctype="multipart/form-data" method="POST"
-                        action="{{ url('/admin/daftar-produk/store') }}">
+                        action="{{ url('/admin/daftar-atlet/store') }}">
                         @method('post')
                         @csrf
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-md-4 mb-2">
-                                    <label>Nama Produk</label>
+                                    <label>Nama</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="nama_produk" class="form-control"
-                                                placeholder="Nama Produk" id="namaProduk" required>
+                                            <input type="text" name="name" class="form-control"
+                                                placeholder="Nama Pengguna" id="name" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-command"></i>
                                             </div>
@@ -34,13 +34,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label>Merk</label>
+                                    <label>Username</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="merk" class="form-control"
-                                                placeholder="Merk Produk" id="merk" required>
+                                            <input type="text" name="username" class="form-control"
+                                                placeholder="Username" id="username" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-tags"></i>
                                             </div>
@@ -48,13 +48,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label>Model</label>
+                                    <label>Password</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="model" class="form-control"
-                                                placeholder="Model Produk" id="model" required>
+                                            <input type="password" name="password" class="form-control"
+                                                id="password" placeholder="*********" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-diagram-2"></i>
                                             </div>
@@ -62,13 +62,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label>Kapasitas</label>
+                                    <label>No Telp</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="kapasitas" class="form-control"
-                                                placeholder="Kapasitas Produk" id="kapasitas" required>
+                                            <input type="text" name="no_telp" class="form-control"
+                                                placeholder="No Telepon" id="no_telp" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-123"></i>
                                             </div>
@@ -76,13 +76,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label>Negara</label>
+                                    <label>Tanggal Lahir</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="negara" class="form-control"
-                                                placeholder="Negara Asal" id="negara" required>
+                                            <input type="date" name="ttl" class="form-control"
+                                                placeholder="ttl" id="ttl" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-flag"></i>
                                             </div>
@@ -90,27 +90,31 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label>Tahun</label>
+                                    <label>Gender</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="text" name="tahun" class="form-control"
-                                                placeholder="Tahun Produk" id="negara" required>
-                                            <div class="form-control-icon">
+                                            <select name="gender" class="form-select"
+                                                aria-label="Default select example"
+                                                id="gender">
+                                                <option selected value="Perempuan">Perempuan</option>
+                                                <option value="Laki-Laki">Laki-Laki</option>
+                                            </select>
+                                            {{-- <div class="form-control-icon">
                                                 <i class="bi bi-calendar-date"></i>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label>Stok Awal</label>
+                                    <label>Unit</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="number" name="stok_awal" class="form-control"
-                                                placeholder="Stok Awal" id="stok_awal" required>
+                                            <input type="text" name="unit" class="form-control"
+                                                placeholder="Unit" id="unit" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-inboxes"></i>
                                             </div>
@@ -118,13 +122,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label>Harga</label>
+                                    <label>TMT</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="number" name="harga" class="form-control"
-                                                placeholder="Harga Produk" id="harga" required>
+                                            <input type="date" name="tmt" class="form-control"
+                                                placeholder="TMT" id="tmt" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-currency-dollar"></i>
                                             </div>
@@ -132,19 +136,54 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label>Gambar</label>
+                                    <label>Penempatan</label>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <div class="form-group has-icon-left">
                                         <div class="position-relative">
-                                            <input type="file" name="gambar" class="form-control" placeholder="Gambar"
-                                                id="gambar" required>
+                                            <input type="text" name="penempatan" class="form-control" placeholder="Penempatan"
+                                                id="penempatan" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-box"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4 mb-2">
+                                    <label>Peran</label>
+                                </div>
+                                <div class="col-md-8 mb-2">
+                                    <div class="form-group has-icon-left">
+                                        <div class="position-relative">
+                                            <select name="role" class="form-select"
+                                                aria-label="Default select example"
+                                                id="role">
+                                                <option selected value="user">Atlet</option>
+                                                <option value="admin">Pelatih</option>
+                                            </select>
+                                            {{-- <div class="form-control-icon">
+                                                <i class="bi bi-calendar-date"></i>
+                                            </div> --}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-2">
+                                    <label>Profil</label>
+                                </div>
+                                <div class="col-md-8 mb-2">
+                                    <div class="form-group has-icon-left">
+                                        <div class="position-relative">
+                                            <input type="file" name="image" class="form-control" placeholder="penempatan"
+                                                id="image" required>
+                                            <div class="form-control-icon">
+                                                <i class="bi bi-calendar-date"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="col-12 d-flex justify-content-end mt-4">
                                     <button type="submit" id="btnSubmit"
                                         class="btn btn-primary me-3 mb-1">Submit</button>

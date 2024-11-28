@@ -34,7 +34,7 @@
                         <h3>Jadwal minggu ini</h3>
                         <ul>
                             @foreach($jadwal as $j)
-                                <li>{{ $t->tanggal }} <span class="badge bg-light-success">{{ $j->status }}</span></li>
+                                <li>{{ $j->tanggal }} <span class="badge {{ $j->status == 'Hadir' ? 'bg-light-success' : 'bg-danger' }}">{{ $j->status }}</span></li>
                             @endforeach
                         </ul>
                     </div>
@@ -44,7 +44,7 @@
         <div class="col-12 col-lg-8">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ url('/admin/daftar-atlet/' . $record->uuid) }}" method="post">
+                    <form action="{{ url('/admin/daftar-atlet/' . $record->uuid) }}" method="post" enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <div class="form-group">
