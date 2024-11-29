@@ -13,7 +13,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body text-bg-success">
-                    Data barang keluar berhasil ditambahkan.
+                    Data berhasil ditambahkan.
                 </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body text-bg-success">
-                    Data barang keluar berhasil Diperbarui.
+                    Data berhasil Diperbarui.
                 </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body text-bg-success">
-                    Data barang keluar berhasil Dihapus.
+                    Data berhasil Dihapus.
                 </div>
                 </div>
             </div>

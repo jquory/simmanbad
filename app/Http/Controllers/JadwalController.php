@@ -117,7 +117,10 @@ class JadwalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $jadwal = Jadwal::find($id);
+        $jadwal->delete();
+
+        return redirect()->route('admin.jadwal')->with('masukDeleted', 'Data berhasil ditambahkan'); 
     }
 
     public function absenHadir($id)
