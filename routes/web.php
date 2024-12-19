@@ -31,6 +31,9 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/user/barang-masuk/getDetail/{id}', [BarangMasukController::class, 'getProductDetails']);
     Route::post('/user/barang-masuk/store', [BarangMasukController::class, 'userStore']);
 
+
+    Route::post('/user/event/{id}/ikuti', [EventController::class, 'follow']);
+
     // Prestasi
     Route::get('/user/prestasi', [PrestasiController::class, 'index'])->name('user.prestasi');
     Route::get('/user/prestasi/create', [PrestasiController::class, 'create']);

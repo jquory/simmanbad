@@ -9,7 +9,7 @@
                 <a href="{{ url('/admin/daftar-atlet') }}" class="d-flex gap-2 mb-3">
                     <i class="bi bi-arrow-left-short"></i>Kembali
                 </a>
-                <h3 class="card-title">Input Produk Baru</h3>
+                <h3 class="card-title">Daftarkan Atlet Baru</h3>
             </div>
             <div class="card-content">
                 <div class="card-body">
