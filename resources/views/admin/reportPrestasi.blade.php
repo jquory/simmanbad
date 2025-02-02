@@ -5,32 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laporan Barang Masuk</title>
+    <title>Laporan Prestasi</title>
     <link href="{{ url('/images/logo_header.png') }}" rel="icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 
 <body>
-    <h5 class="text-center">Laporan Barang Keluar</h5>
+    <h5 class="text-center">Laporan Prestasi</h5>
     <table class="table table-bordered">
         <thead class="text-center">
             <tr>
                 <th>No.</th>
-                <th>Kode Barang</th>
-                <th>Nama Barang</th>
-                <th>Satuan</th>
-                <th>Jumlah Keluar</th>
+                <th>Nama Prestasi</th>
+                <th>Peraih</th>
+                <th>Tingkat</th>
+                <th>Tahun</th>
+                <th>Pemberi Prestasi</th>
+                <th>Sertifikat</th>
             </tr>
         </thead>
         <tbody class="text-center">
             @forelse ($data as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $item->kode_barang }}</td>
-                <td>{{ $item->nama_barang }}</td>
-                <td>{{ $item->satuan }}</td>
-                <td>{{ $item->total_jumlah_keluar }}</td>
+                <td>{{ $item->nama }}</td>
+                <td>{{ $item->name }}</td>
+                <td>{{ $item->tingkat }}</td>
+                <td>{{ $item->tahun }}</td>
+                <td>{{ $item->pemberi }}</td>
+                <td class="w-25">
+                    <img class="w-25 m-auto" src="{{ 'https://simmanbad.com/' . $item->sertifikat }}" alt="">
+                </td>
             </tr>
             @empty
             <tr>

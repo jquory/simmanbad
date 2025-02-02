@@ -9,6 +9,7 @@ use App\Models\Stok;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
@@ -115,7 +116,7 @@ class UserController extends Controller
             ]);
             $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('uploads/images'), $imageName);
-            $user->image = 'uploads/images/' . $imageName;
+            $user->image_url = 'uploads/images/' . $imageName;
         }
 
         $user->name = $request->name;
@@ -142,5 +143,13 @@ class UserController extends Controller
         $idBarang->delete();
 
         return redirect()->route('admin.daftar-atlet')->with('deleted', 'Data Berhasil dihapus');
+    }
+
+    public function getPdfAtlet()
+    {
+        $data = User::select('users.name', 'users.username', 'users.no_telp', 'users.unit', 'users.tmt', 'users.penempatan', 'users.role', 'users.ttl', 'users.image_url', 'users.gender')
+        ->get();
+        $pdf = Pdf::loadView('admin.reportAtlet', compact('data'))->setPaper('A4', 'landscape');
+        return $pdf->stream('atlet.pdf');
     }
 }

@@ -13,7 +13,7 @@
             </div>
             <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" method="POST" action="{{ url('/admin/prestasi/store') }}">
+                    <form class="form form-horizontal" method="POST" action="{{ url('/admin/prestasi/store') }}" enctype="multipart/form-data">
                         @method('post')
                         @csrf
                         <div class="form-body">
@@ -93,6 +93,18 @@
                                             <div class="form-control-icon">
                                                 <i class="bi bi-person-check"></i>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-2">
+                                    <label>Sertifikat</label>
+                                </div>
+                                <div class="col-md-8 mb-2">
+                                    <div class="form-group has-icon-left">
+                                        <div class="position-relative">
+                                            <input type="file" name="image" class="form-control"
+                                                placeholder="Sertifikat" id="image" required>
                                         </div>
                                     </div>
                                 </div>

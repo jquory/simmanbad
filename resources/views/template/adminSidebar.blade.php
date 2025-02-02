@@ -56,6 +56,22 @@
                         </a>
                     </li>
 
+                    <li class="sidebar-title">Report</li>
+
+                    <li class="{{ (request()->is('admin/report-jadwal*')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('admin/report-jadwal') }}" class="sidebar-link">
+                            <i class="bi bi-file-earmark-check-fill"></i>
+                            <span>Report Jadwal</span>
+                        </a>
+                    </li>
+
+                    <li class="{{ (request()->is('admin/report-event*')) ? 'sidebar-item active' : 'sidebar-item' }}">
+                        <a href="{{ url('admin/report-event') }}" class="sidebar-link">
+                            <i class="bi bi-file-earmark-check-fill"></i>
+                            <span>Report Event</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-title">Session</li>
                     <li class="sidebar-item">
                         <a type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="sidebar-link">

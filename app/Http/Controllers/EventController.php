@@ -9,6 +9,7 @@ use App\Models\ProdukKeluar;
 use App\Models\Stok;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -199,5 +200,32 @@ class EventController extends Controller
         $eventParticipant->save();
 
         return redirect()->route('user.dashboard')->with('tertambah', 'Produk Masuk berhasil ditambahkan');
+    }
+
+    public function report() {
+        $data = DB::table('event')->select('name', 'tanggal', 'detil')->get();
+        return view('admin.laporanEvent', compact('data'));
+    }
+
+    public function filterEvent(Request $request) {
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+        if($request->start_date) {
+            $data = Event::select('name', 'tanggal', 'detil')
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
+            return view('admin.laporanEvent', compact('data'));
+        } else {
+            $data = Event::select('name', 'tanggal', 'detil')->get();
+            
+            return view('admin.laporanEvent', compact('data'));
+        }
+    }
+
+    public function getPdfEvent()
+    {
+        $data = Event::select('name', 'tanggal', 'detil')->get();
+        $pdf = Pdf::loadView('admin.reportEvent', compact('data'))->setPaper('A4', 'landscape');
+        return $pdf->stream('Event.pdf');
     }
 }

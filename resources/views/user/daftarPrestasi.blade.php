@@ -58,6 +58,7 @@
                         <th>Tingkat</th>
                         <th>Tahun</th>
                         <th>Pemberi Prestasi</th>
+                        <th>Sertifikat</th>
                         <th>aksi</th>
                     </tr>
                 </thead>
@@ -70,6 +71,9 @@
                         <td>{{ $record->tingkat }}</td>
                         <td>{{ $record->tahun }}</td>
                         <td>{{ $record->pemberi }}</td>
+                        <td class="w-25">
+                            <img class="w-25 m-auto" src="{{ url($record->sertifikat) }}" alt="">
+                        </td>
                         <td>
                             <a type="button" href="{{ url('/user/prestasi/' . $record->id . '/edit') }}"
                                 class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-title="Edit">

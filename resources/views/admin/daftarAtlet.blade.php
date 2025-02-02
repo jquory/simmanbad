@@ -47,6 +47,11 @@
 
         <div class="card-header d-flex justify-content-between">
             <h4>Daftar Atlet</h4>
+            <form action="{{ route('pdfAtlet') }}" method="POST" target="blank">
+                @csrf
+                @method('post')
+                <button class="btn btn-primary">Download PDF</button>
+            </form>
             <a href="{{ url('/admin/daftar-atlet/create') }}" class="btn btn-primary">Tambah Atlet</a>
         </div>
         <div class="card-body">

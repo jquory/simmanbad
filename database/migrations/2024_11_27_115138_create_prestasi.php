@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('tingkat');
             $table->string('tahun');
             $table->string('pemberi');
+            $table->string('sertifikat');
             $table->timestamps();
         });
     }

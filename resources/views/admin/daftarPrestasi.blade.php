@@ -47,6 +47,11 @@
 
         <div class="card-header d-flex justify-content-between">
             <h4>Daftar Prestasi</h4>
+            <form action="{{ route('pdfPrestasi') }}" method="POST" target="blank">
+                @csrf
+                @method('post')
+                <button class="btn btn-primary">Download PDF</button>
+            </form>
             <a href="{{ url('/admin/prestasi/create') }}" class="btn btn-primary">Tambah Prestasi</a>
         </div>
         <div class="card-body">
@@ -59,6 +64,7 @@
                         <th>Tingkat</th>
                         <th>Tahun</th>
                         <th>Pemberi Prestasi</th>
+                        <th>Sertifikat</th>
                         <th>aksi</th>
                     </tr>
                 </thead>
@@ -72,6 +78,9 @@
                         <td>{{ $record->tingkat }}</td>
                         <td>{{ $record->tahun }}</td>
                         <td>{{ $record->pemberi }}</td>
+                        <td class="w-25">
+                            <img class="w-25 m-auto" src="{{ url($record->sertifikat) }}" alt="">
+                        </td>
                         <td>
                             <a type="button" href="{{ url('/admin/prestasi/' . $record->id . '/edit') }}"
                                 class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-title="Edit">

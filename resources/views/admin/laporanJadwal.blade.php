@@ -4,15 +4,15 @@
 <section class="section">
     <div class="card">
         <div class="card-header d-flex justify-content-between">
-            <h4>Laporan Barang Keluar</h4>
-            <form action="{{ route('laporan-keluar') }}" class="d-flex justify-content-evenly align-items-center">
+            <h4>Laporan Jadwal</h4>
+            <form action="{{ route('laporan-jadwal') }}" class="d-flex justify-content-evenly align-items-center">
                 <input type="date" id="flatpickr-range" class="form-control w-75 flatpickr-range"
                     placeholder="Filter dengan tanggal">
                 <input type="hidden" name="start_date" id="start_date">
                 <input type="hidden" name="end_date" id="end_date">
                 <button type="submit" class="btn btn-success ms-2">Filter</button>
             </form>
-            <form action="{{ route('pdfKeluar') }}" method="POST" target="blank">
+            <form action="{{ route('pdfJadwal') }}" method="POST" target="blank">
                 @csrf
                 @method('post')
                 <input type="hidden" name="dari" id="dari">
@@ -25,20 +25,20 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Kode Barang</th>
-                        <th>Nama Barang</th>
-                        <th>Satuan</th>
-                        <th>Jumlah Keluar</th>
+                        <th>Nama</th>
+                        <th>Jenis Latihan</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody id="container">
                     @forelse ($data as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->kode_barang }}</td>
-                        <td>{{ $item->nama_barang }}</td>
-                        <td>{{ $item->satuan }}</td>
-                        <td>{{ $item->total_jumlah_keluar }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->tanggal }}</td>
+                        <td>{{ $item->status }}</td>
                     </tr>
                     @empty
                     <tr>

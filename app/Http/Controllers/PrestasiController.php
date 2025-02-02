@@ -6,6 +6,7 @@ use App\Models\Prestasi;
 use App\Models\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -19,7 +20,7 @@ class PrestasiController extends Controller
     public function index()
     {
         $allRecords = DB::table('prestasi')->leftJoin('users', 'prestasi.user_id', '=', 'users.uuid')
-        ->select('prestasi.name as nama', 'prestasi.id', 'prestasi.tingkat', 'prestasi.tahun', 'prestasi.pemberi', 'users.name')
+        ->select('prestasi.name as nama', 'prestasi.id', 'prestasi.tingkat', 'prestasi.tahun', 'prestasi.pemberi', 'users.name', 'prestasi.sertifikat')
         ->get();
 
         $user = Auth::user();
@@ -79,6 +80,9 @@ class PrestasiController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpeg,png,gif|max:2048',
+        ]);
         $prestasi = new Prestasi();
         $user = Auth::user();
 
@@ -88,7 +92,11 @@ class PrestasiController extends Controller
             $prestasi->user_id = $request->user_id;
         }
 
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('uploads/images'), $imageName);
+
         $prestasi->name = $request->name;
+        $prestasi->sertifikat = 'uploads/images/' . $imageName;
         $prestasi->tingkat = $request->tingkat;
         $prestasi->tahun = $request->tahun;
         $prestasi->pemberi = $request->pemberi;
@@ -140,7 +148,7 @@ class PrestasiController extends Controller
     public function edit($id)
     {
         $prestasi = DB::table('prestasi')->leftJoin('users', 'prestasi.user_id', '=', 'users.uuid')
-        ->select('prestasi.name as nama', 'prestasi.id', 'prestasi.tingkat', 'prestasi.tahun', 'prestasi.pemberi', 'users.name')
+        ->select('prestasi.name as nama', 'prestasi.id', 'prestasi.tingkat', 'prestasi.tahun', 'prestasi.pemberi', 'users.name', 'prestasi.sertifikat')
         ->where('prestasi.id', '=', $id)
         ->first();
 
@@ -164,11 +172,17 @@ class PrestasiController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('uploads/images'), $imageName);
+
         $prestasi = Prestasi::find($id);
         $prestasi->name = $request->name;
         $prestasi->tingkat = $request->tingkat;
         $prestasi->tahun = $request->tahun;
         $prestasi->pemberi = $request->pemberi;
+        
+        $prestasi->sertifikat = 'uploads/images/' . $imageName;
         $prestasi->update();
 
         $user = Auth::user();
@@ -212,5 +226,14 @@ class PrestasiController extends Controller
             'satuan' => $productDetail->satuan,
             'kode_barang' => $productDetail->kode_barang
         ]);
+    }
+
+    public function getPdfPrestasi()
+    {
+        $data = DB::table('prestasi')->leftJoin('users', 'prestasi.user_id', '=', 'users.uuid')
+        ->select('prestasi.name as nama', 'prestasi.id', 'prestasi.tingkat', 'prestasi.tahun', 'prestasi.pemberi', 'users.name', 'prestasi.sertifikat')
+        ->get();
+        $pdf = Pdf::loadView('admin.reportPrestasi', compact('data'))->setPaper('A4', 'landscape');
+        return $pdf->stream('prestasi.pdf');
     }
 }

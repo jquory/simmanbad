@@ -67,7 +67,7 @@
                 <div class="card-body py-4 px-5">
                     <div class="d-flex align-items-center">
                         <div class="avatar avatar-xl">
-                            <img src="{{ auth()->user()->image_url }}" alt="Face 1" />
+                            <img src="{{ filter_var(auth()->user()->image_url, FILTER_VALIDATE_URL) ? auth()->user()->image_url : url(auth()->user()->image_url) }}" alt="Face 1" />
                         </div>
                         <div class="ms-3 name">
                             <h5 class="font-bold">{{ auth()->user()->name }}</h5>

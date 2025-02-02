@@ -13,10 +13,15 @@
             </div>
             <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" method="POST" action="{{ url('/user/prestasi/' . $prestasiSingle->id) }}">
+                    <form class="form form-horizontal" method="POST" action="{{ url('/user/prestasi/' . $prestasiSingle->id) }}" enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-10 mb-4 rounded-lg">
+                                    <img src="{{ url($prestasiSingle->sertifikat) }}" alt="">
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-4 mb-2">
                                     <label>Nama Prestasi</label>
@@ -74,6 +79,18 @@
                                             <div class="form-control-icon">
                                                 <i class="bi bi-person-check"></i>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-2">
+                                    <label>Sertifikat</label>
+                                </div>
+                                <div class="col-md-8 mb-2">
+                                    <div class="form-group has-icon-left">
+                                        <div class="position-relative">
+                                            <input type="file" name="image" class="form-control"
+                                                placeholder="Pemberi Penghargaan" id="image" required value="{{ $prestasiSingle->sertifikat }}">
                                         </div>
                                     </div>
                                 </div>

@@ -77,6 +77,10 @@
                             <input type="text" name="penempatan" id="penempatan" class="form-control" placeholder="Belum diisi" value="{{ $record->penempatan }}">
                         </div>
                         <div class="form-group">
+                            <label for="penempatan" class="form-label">Foto profil</label>
+                            <input type="file" name="image" id="image" class="form-control" placeholder="Belum diisi" value="{{ $record->image_url }}">
+                        </div>
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>

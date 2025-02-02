@@ -13,7 +13,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body text-bg-success">
-                    Data barang masuk berhasil ditambahkan.
+                    Absen berhasil.
                 </div>
             </div>
         </div>
@@ -34,12 +34,12 @@
         <div class="toast-container position-fixed top-0 end-50 start-50 p-3">
             <div id="masukToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header ">
-                    <div class="p-2 bg-success rounded-4 me-2"></div>
-                    <strong class="me-auto">Berhasil</strong>
+                    <div class="p-2 bg-warning rounded-4 me-2"></div>
+                    <strong class="me-auto">Gagal</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
-                <div class="toast-body text-bg-success">
-                    Data barang masuk berhasil Dihapus.
+                <div class="toast-body text-bg-warning">
+                    Lokasi anda terlalu jauh
                 </div>
             </div>
         </div>
@@ -47,7 +47,6 @@
 
         <div class="card-header d-flex justify-content-between">
             <h4>Daftar Jadwal</h4>
-            {{-- <a href="{{ url('/admin/jadwal/create') }}" class="btn btn-primary">Tambah Jadwal</a> --}}
         </div>
         <div class="card-body">
             <table class="table" id="table1">
@@ -79,70 +78,22 @@
                         </td>
                         @if($record->status == 'Terjadwal')
                         <td>
-                            <button @if($record->tanggal != $today) disabled @endif class="btn btn-success" data-bs-toggle="modal" data-bs-target="#hadirModal-{{ $record->id }}"
-                                data-bs-toggle="tooltip" data-bs-title="Hadir">
-                                <i class="bi bi-check-circle-fill"></i>
-                            </button>
-                            <button @if($record->tanggal != $today) disabled @endif class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $record->id }}"
-                                data-bs-toggle="tooltip" data-bs-title="Tidak Hadir">
-                                <i class="bi bi-x-lg"></i>
-                            </button>
+                            <form id="form-{{ $record->id }}" action="{{ url('/user/jadwal/' . $record->id . '/hadir') }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="latitude" class="latitude-input" />
+                                <input type="hidden" name="longitude" class="longitude-input" />
+                                <button type="button" @if($record->tanggal != $today) disabled @endif 
+                                        class="btn btn-success submit-btn" 
+                                        data-form-id="{{ $record->id }}"
+                                        data-bs-toggle="tooltip" 
+                                        data-bs-title="Hadir">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </button>
+                            </form>
                         </td>
                         @endif
                     </tr>
-
-                    {{-- Delete Modal --}}
-
-                    <div class="modal modal-borderless fade" id="hadirModal-{{ $record->id }}" tabindex="-1"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title text-success fs-5" id="exampleModalLabel">Konfirmasi Hadir</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Anda yakin telah menghadiri latihan ini?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Batal</button>
-                                    <form action="{{ url('/user/jadwal/' . $record->id . '/hadir') }}" method="post">
-                                        @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-success">Ya</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal modal-borderless fade" id="deleteModal-{{ $record->id }}" tabindex="-1"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title text-danger fs-5" id="exampleModalLabel">Tidak Hadir</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Anda yakin tidak menghadiri latihan ini?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Batal</button>
-                                    <form action="{{ url('/user/jadwal/' . $record->id . '/tidak-hadir') }}" method="post">
-                                        @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-danger">Ya</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     @endforeach
                 </tbody>
             </table>
@@ -151,6 +102,38 @@
 </section>
 
 <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get location first
+        navigator.geolocation.getCurrentPosition(function(position) {
+            // Set coordinates for all forms
+            document.querySelectorAll('.latitude-input').forEach(input => {
+                input.value = position.coords.latitude;
+            });
+            document.querySelectorAll('.longitude-input').forEach(input => {
+                input.value = position.coords.longitude;
+            });
+        });
+
+        // Handle button clicks
+        document.querySelectorAll('.submit-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const formId = this.getAttribute('data-form-id');
+                const form = document.getElementById('form-' + formId);
+                
+                // Check if coordinates are set
+                const lat = form.querySelector('.latitude-input').value;
+                const lng = form.querySelector('.longitude-input').value;
+                
+                if (!lat || !lng) {
+                    alert('Please wait for location data to be loaded');
+                    return;
+                }
+                
+                form.submit();
+            });
+        });
+    });
+
     document.addEventListener('DOMContentLoaded', function () {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -166,6 +149,5 @@
 <script src="{{ url('/extensions/jquery/jquery.min.js') }}"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
 <script src="{{ url('/js/pages/datatables.js') }}"></script>
-
 
 @endsection

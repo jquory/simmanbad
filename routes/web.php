@@ -64,6 +64,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/daftar-atlet/{uuid}/detil', [UserController::class, 'show']);
     Route::put('/admin/daftar-atlet/{id}', [UserController::class, 'update']);
     Route::delete('/admin/daftar-atlet/{id}', [UserController::class, 'destroy']);
+    Route::post('/admin/report-atlet-pdf', [UserController::class, 'getPdfAtlet'])->name('pdfAtlet');
 
     // Kriteria
     Route::get('/admin/kriteria', [KriteriaController::class, 'index'])->name('admin.kriteria');
@@ -77,6 +78,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/prestasi/{id}/edit', [PrestasiController::class, 'edit']);
     Route::put('/admin/prestasi/{id}', [PrestasiController::class, 'update']);
     Route::delete('/admin/prestasi/{id}', [PrestasiController::class, 'destroy']);
+    Route::post('/admin/report-prestasi-pdf', [PrestasiController::class, 'getPdfPrestasi'])->name('pdfPrestasi');
 
     // Crud Event
     Route::get('/admin/event', [EventController::class, 'index'])->name('admin.event');
@@ -88,6 +90,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::put('/admin/event/{id}', [EventController::class, 'update']);
     Route::delete('/admin/event/{id}', [EventController::class, 'destroy']);
     Route::post('/admin/event/{id}/ikuti', [EventController::class, 'follow']);
+    Route::get('/admin/report-event', [EventController::class, 'report']);
+    Route::get('/admin/laporan-event', [EventController::class, 'filterEvent'])->name('laporan-event');
+    Route::post('/admin/report-event-pdf', [EventController::class, 'getPdfEvent'])->name('pdfEvent');
 
     // History Route
     Route::get('/admin/log-aktivitas', [LogAktivitasController::class, 'index']);
@@ -107,6 +112,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/jadwal/{id}/edit', [JadwalController::class, 'show']);
     Route::put('/admin/jadwal/{id}', [JadwalController::class, 'update']);
     Route::delete('/admin/jadwal/{id}', [JadwalController::class, 'destroy']);
+    Route::get('/admin/report-jadwal', [JadwalController::class, 'report']);
+    Route::get('/admin/laporan-jadwal', [JadwalController::class, 'filterJadwal'])->name('laporan-jadwal');
+    Route::post('/admin/report-jadwal-pdf', [JadwalController::class, 'getPdfJadwal'])->name('pdfJadwal');
 
     // Transaksi 
     Route::get('/admin/transaksi', [TransaksiController::class, 'index'])->name('admin.transaksi');
